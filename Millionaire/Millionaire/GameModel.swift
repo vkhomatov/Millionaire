@@ -17,14 +17,34 @@ final class Game {
     let firstAnswerCost = 100
     
     var game: GameSession?
-        
-    var shuffleQuestions: Bool = false
-
+    
+    var shufflePosition: Int {
+        get {
+            let userDefaultsGet = UserDefaults.standard
+            guard let shuffle = userDefaultsGet.object(forKey: "SHAFFLE") as? Int else {
+                print("Ключ SHAFFLE в UserDefaults не найден")
+                return 0 }
+            //  Game.shared.shuffleQuestions = shuffle
+            print("shufflePositionGet \(shuffle)")
+            return shuffle
+        }
+        set {
+            //    Game.shared.shuffleQuestions = newValue
+            UserDefaults.standard.set(newValue, forKey: "SHAFFLE")
+            print("shufflePositionSet \(newValue)")
+            
+        }
+        //return (userDefaultsGet.object(forKey: "SHAFFLE") as? Int)!
+    }
+    // var shuffleQuestions: Int = 0
+    
     // массив вопросов, сохраняем в UD и загружаем из UD
     var questions : [Question]?
     
     //массив результатов игр, сохраняем в UD и загружаем из UD
     var results : [GameSession]?
+    
+    
     
     
     func getQuestions(shuffle: Bool) {
@@ -55,8 +75,8 @@ final class Game {
         
         if shuffle {
             questionBase.shuffle()
-          //  questionBase.shuffle()
-          //  questionBase.shuffle()
+            //  questionBase.shuffle()
+            //  questionBase.shuffle()
         }
         
         questions = questionBase
@@ -65,47 +85,48 @@ final class Game {
         
     }
     
-    func saveQuestion(newQuestion: Question) {
-        
-        if questions == nil { return }
-        
-        if (newQuestion.question != "" && newQuestion.rightAnswer != "" && newQuestion.wrongAnswer1 != "" && newQuestion.wrongAnsver3 != "" && newQuestion.wrongAnsver3 != "") {
-            questions?.append(newQuestion)
-            print("Вопрос записан в базу")
-        } else { print("Вопрос сформирован неправильно, проверьте заполнение всех необходимых полей") }
-        
-    }
+    //    func saveQuestion(newQuestion: Question) {
+    //
+    //        if questions == nil { return }
+    //
+    //        if (newQuestion.question != "" && newQuestion.rightAnswer != "" && newQuestion.wrongAnswer1 != "" && newQuestion.wrongAnsver3 != "" && newQuestion.wrongAnsver3 != "") {
+    //            questions?.append(newQuestion)
+    //            print("Вопрос записан в базу")
+    //        } else { print("Вопрос сформирован неправильно, проверьте заполнение всех необходимых полей") }
+    //
+    //    }
+    //
     
-    
-    func getGameResults() {
-        
-        var resultsBase =  [GameSession]()
-        
-        
-        let result1 = GameSession(answerCost: firstAnswerCost, randomQuestions: false, rightAnswerCount: 5, prizeCount: 6500, peopleHelpUse: true, callToFriendUse: false, fiftyFiftyUse: false)
-        let result2 = GameSession(answerCost: firstAnswerCost, randomQuestions: true, rightAnswerCount: 4, prizeCount: 3200, peopleHelpUse: true, callToFriendUse: true, fiftyFiftyUse: false)
-        let result3 = GameSession(answerCost: firstAnswerCost, randomQuestions: false, rightAnswerCount: 3, prizeCount: 1800, peopleHelpUse: true, callToFriendUse: true, fiftyFiftyUse: true)
-        
-        resultsBase.append(result1)
-        resultsBase.append(result2)
-        resultsBase.append(result3)
-        
-        results = resultsBase
-        
-    }
-    
-    func saveGameResults(newGame: GameSession) {
-        
-        if results != nil {
-            results?.append(newGame)
-            print("Результат игры записан в базу")
-        }
-    }
+    //    func getGameResults() {
+    //
+    //        var resultsBase =  [GameSession]()
+    //
+    //
+    //
+    //        let result1 = GameSession(answerCost: firstAnswerCost, randomQuestions: false, rightAnswerCount: 5, prizeCount: 6500, peopleHelpUse: true, callToFriendUse: false, fiftyFiftyUse: false)
+    //        let result2 = GameSession(answerCost: firstAnswerCost, randomQuestions: true, rightAnswerCount: 4, prizeCount: 3200, peopleHelpUse: true, callToFriendUse: true, fiftyFiftyUse: false)
+    //        let result3 = GameSession(answerCost: firstAnswerCost, randomQuestions: false, rightAnswerCount: 3, prizeCount: 1800, peopleHelpUse: true, callToFriendUse: true, fiftyFiftyUse: true)
+    //
+    //        resultsBase.append(result1)
+    //        resultsBase.append(result2)
+    //        resultsBase.append(result3)
+    //
+    //        results = resultsBase
+    //
+    //    }
+    //
+    //    func saveGameResults(newGame: GameSession) {
+    //
+    //        if results != nil {
+    //            results?.append(newGame)
+    //            print("Результат игры записан в базу")
+    //        }
+    //    }
     
     
 }
 
-struct Question: Equatable {
+struct Question: Equatable, Codable {
     
     var question : String?
     var rightAnswer : String?
@@ -115,3 +136,15 @@ struct Question: Equatable {
     
     //init() {}
 }
+
+
+//struct Results: Codable {
+//
+//    var dateOfGame: String?
+//    var prizeCount: Int?
+//    var rightAnswerCount: Int?
+//    var allQuestionsCount: Int?
+//    var promptUseCount: Int?
+//    var randomQuestions: Bool?
+//    
+//}

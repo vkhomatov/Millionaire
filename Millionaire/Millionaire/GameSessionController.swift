@@ -25,7 +25,9 @@ class GameSessionController: UIViewController {
     @IBOutlet weak var CallToFriendButton: UIButton!
     @IBOutlet weak var FiftyFiftyButton: UIButton!
     
-    private var gameSession = GameSession(answerCost: Game.shared.firstAnswerCost, randomQuestions: false, rightAnswerCount: 0, prizeCount: 0, peopleHelpUse: false, callToFriendUse: false, fiftyFiftyUse: false)
+   // private var gameSession = GameSession(answerCost: Game.shared.firstAnswerCost, randomQuestions: false, rightAnswerCount: 0, prizeCount: 0, peopleHelpUse: false, callToFriendUse: false, fiftyFiftyUse: false)
+    
+    private var gameSession = GameSession(answerCost: Game.shared.firstAnswerCost)
     
     private var answerButtons = [UIButton]()
     
@@ -38,6 +40,9 @@ class GameSessionController: UIViewController {
             return }
         
         if let answer = sender.currentTitle {
+            
+            //перенести функционал в модель, подумать как лучше это сделать
+            
             switch answer {
             case Game.shared.questions![Game.shared.game!.questionCount-1].rightAnswer:
                 
@@ -71,15 +76,15 @@ class GameSessionController: UIViewController {
                 
             case PeopleHelpButton.titleLabel!.text:
                 Game.shared.game!.peopleHelpUse = true
-                PeopleHelp(people: true)
+                PeopleAndFriendHelpPrompt(people: true)
                 
             case CallToFriendButton.titleLabel!.text:
                 Game.shared.game!.callToFriendUse = true
-                PeopleHelp(people: false)
+                PeopleAndFriendHelpPrompt(people: false)
 
             case FiftyFiftyButton.titleLabel!.text:
                 Game.shared.game!.fiftyFiftyUse = true
-                UsePrompt(promptCount: 2)
+                FiftyFiftyPrompt(promptCount: 2)
                 
             default:
                 break
@@ -89,8 +94,9 @@ class GameSessionController: UIViewController {
     }
     
     //перенести функционал в модель
-    func UsePrompt(promptCount: Int) {
+    func FiftyFiftyPrompt(promptCount: Int) {
         
+        // выключение всех кнопок после
         PeopleHelpButton.isEnabled = false
         FiftyFiftyButton.isEnabled = false
         CallToFriendButton.isEnabled = false
@@ -115,7 +121,7 @@ class GameSessionController: UIViewController {
     }
     
     // перенести функционал в модель
-    func PeopleHelp(people: Bool) {
+    func PeopleAndFriendHelpPrompt(people: Bool) {
         
         PeopleHelpButton.isEnabled = false
         FiftyFiftyButton.isEnabled = false
@@ -139,6 +145,8 @@ class GameSessionController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Game.shared.game = gameSession
+        Game.shared.game!.dateGame = Game.shared.game!.dateGameF()
+
         answerButtons.append(Answer1Button)
         answerButtons.append(Answer2Button)
         answerButtons.append(Answer3Button)
@@ -156,7 +164,7 @@ class GameSessionController: UIViewController {
             answerButtons[button].titleLabel?.textColor = .systemBlue
         }
         
-        // включение не использованных подсказок
+        // включение кнопок с неиспользованными подсказками
         PeopleHelpButton.isEnabled = !Game.shared.game!.peopleHelpUse
         CallToFriendButton.isEnabled = !Game.shared.game!.callToFriendUse
         FiftyFiftyButton.isEnabled = !Game.shared.game!.fiftyFiftyUse

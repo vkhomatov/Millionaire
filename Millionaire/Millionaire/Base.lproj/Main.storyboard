@@ -72,6 +72,7 @@
                     <navigationItem key="navigationItem" id="4UQ-NG-kgM"/>
                     <connections>
                         <outlet property="ShaffleQuestionsLabel" destination="ZoP-3c-dGc" id="bah-6R-klT"/>
+                        <outlet property="ShuffleQuestionSwitchControl" destination="M32-7M-swj" id="NTU-qy-jXv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

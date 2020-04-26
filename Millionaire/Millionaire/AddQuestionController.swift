@@ -20,6 +20,9 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
     
     private var newQuestion = Question()
     
+    private let dataCaretaker = DataCaretaker()
+    
+    
     @IBAction func AddQuestionButton(_ sender: UIButton) {
         
         if Game.shared.questions == nil { return  }
@@ -67,7 +70,12 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         newQuestion.wrongAnsver2 = WrongAnswer2TextField.text!
         newQuestion.wrongAnsver3 = WrongAnswer3TextField.text!
         
-        Game.shared.saveQuestion(newQuestion: newQuestion)
+        if Game.shared.questions != nil {
+            Game.shared.questions?.append(newQuestion)
+            dataCaretaker.saveQuestions(questions: Game.shared.questions!)
+        }
+        
+        //Game.shared.saveQuestion(newQuestion: newQuestion)
         
         QuestionsTableView.reloadData()
         
@@ -100,8 +108,34 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.QuestionNameLabel.text = Game.shared.questions![indexPath.row].question
         
+//        if indexPath.row < 10 {
+//            cell.
+//        }
+        
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+           // if Game.shared.questions != nil && indexPath.row > 10
+           // {
+                Game.shared.questions!.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            //}
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        
+        if indexPath.row < 10 {
+            return UITableViewCell.EditingStyle.none
+        } else {
+            return UITableViewCell.EditingStyle.delete
+        }
+        
+    }
+    
     
     
 }

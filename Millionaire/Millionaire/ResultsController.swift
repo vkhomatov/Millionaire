@@ -30,7 +30,7 @@ class ResultsController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let cell = ResultsTableView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath) as! ResultCell
         
-        if Game.shared.results == nil || Game.shared.questions == nil  { return cell }
+        if Game.shared.results == nil  { return cell }
         
         cell.DateLabel.text = Game.shared.results![indexPath.row].dateGame
         cell.PrizeLabel.text = String(Game.shared.results![indexPath.row].prizeCount)
@@ -40,6 +40,17 @@ class ResultsController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         return cell
 
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            if Game.shared.results != nil
+            {
+                Game.shared.results!.remove(at: indexPath.row)
+                ResultsTableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
     }
     
     

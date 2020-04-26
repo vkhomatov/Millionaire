@@ -25,8 +25,14 @@ class EndGameController: UIViewController {
     
     var gameWinName: String = "ИГРА ЗАКОНЧЕНА"
     
+    private let dataCaretaker = DataCaretaker()
+
+    
     @IBAction func closeButton(_ sender: UIButton) {
         self.dismiss(animated: true) {
+            
+           
+
             self.gameSessionController.dismiss(animated: true, completion: nil)
             Game.shared.game = nil
            // print("Кол-во использованнных подсказок: \(Game.shared.game!.promtUseCount)")
@@ -38,11 +44,16 @@ class EndGameController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if Game.shared.shuffleQuestions {
-            ShuffleQuestionsLabel.text = "Да"
-        } else {
-            ShuffleQuestionsLabel.text = "Нет"
-        }
+//        if Game.shared.shuffleQuestions {
+//            ShuffleQuestionsLabel.text = "Да"
+//        } else {
+//            ShuffleQuestionsLabel.text = "Нет"
+//        }
+        
+        //Game.shared.game!.randomQuestions = Game.shared.game!.randomQuestionsF()
+        Game.shared.game!.promtUseCount = Game.shared.game!.promtUseCountF()
+      //  Game.shared.game!.randomQuestionsString = Game.shared.game!.randomQuestionsStringF()
+        
         
         GameOverLabel.text = gameWinName
         GamePrizeLabel.text = String(Game.shared.game!.prizeCount) + " рублей"
@@ -51,9 +62,21 @@ class EndGameController: UIViewController {
         if Game.shared.game!.peopleHelpUse { HelpPeopleUseLabel.textColor = .systemYellow }
         if Game.shared.game!.callToFriendUse { CallToFriendUseLabel.textColor = .systemYellow }
         if Game.shared.game!.fiftyFiftyUse { FiftyFiftyUseLabel.textColor = .systemYellow }
+        ShuffleQuestionsLabel.text = Game.shared.game!.randomQuestionsStringF()
         
-        Game.shared.saveGameResults(newGame:  Game.shared.game!)
+     
+//                if Game.shared.shufflePosition == 1 {
+//                    ShuffleQuestionsLabel.text = "да" }
+//                else {
+//                    ShuffleQuestionsLabel.text = "нет" }
+   
+      //  ShuffleQuestionsLabel.text =   Game.shared.game!.randomQuestionsStringF()
 
+        
+        Game.shared.results?.append(Game.shared.game!)
+        self.dataCaretaker.saveResults(results: Game.shared.results!)
+        // Game.shared.saveGameResults(newGame:  Game.shared.game!)
+        
     }
     
 
