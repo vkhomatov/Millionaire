@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5813A65724544B8900B2B03C /* DataCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813A65624544B8800B2B03C /* DataCaretaker.swift */; };
+		5813A65B245599C800B2B03C /* Strategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813A65A245599C800B2B03C /* Strategy.swift */; };
 		585730052452CCA7007C5EBE /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585730042452CCA7007C5EBE /* ResultCell.swift */; };
 		585730072452F960007C5EBE /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585730062452F960007C5EBE /* QuestionCell.swift */; };
 		58625551244EA23B0049ABF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58625550244EA23B0049ABF5 /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		5813A65624544B8800B2B03C /* DataCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCaretaker.swift; sourceTree = "<group>"; };
+		5813A65A245599C800B2B03C /* Strategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strategy.swift; sourceTree = "<group>"; };
 		585730042452CCA7007C5EBE /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
 		585730062452F960007C5EBE /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
 		5862554D244EA23B0049ABF5 /* Millionaire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Millionaire.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				5813A65624544B8800B2B03C /* DataCaretaker.swift */,
+				5813A65A245599C800B2B03C /* Strategy.swift */,
 			);
 			path = Momento;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				5862556F244EE0E40049ABF5 /* GameSessionModel.swift in Sources */,
 				5862556B244ED20C0049ABF5 /* EndGameController.swift in Sources */,
 				5862556D244ED26C0049ABF5 /* AddQuestionController.swift in Sources */,
+				5813A65B245599C800B2B03C /* Strategy.swift in Sources */,
 				58625569244ED1EB0049ABF5 /* ResultsController.swift in Sources */,
 				58625551244EA23B0049ABF5 /* AppDelegate.swift in Sources */,
 				585730072452F960007C5EBE /* QuestionCell.swift in Sources */,

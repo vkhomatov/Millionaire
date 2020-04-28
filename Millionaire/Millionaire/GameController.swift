@@ -11,91 +11,69 @@ import UIKit
 class GameController: UIViewController {
     
     private let dataCaretaker = DataCaretaker()
-
+    
+    @IBOutlet weak var GameTimerOnOffLabel: UILabel!
     @IBOutlet weak var ShuffleQuestionSwitchControl: UISwitch!
+    @IBOutlet weak var GameTimerOnOffSwithControl: UISwitch!
+    @IBOutlet weak var ShaffleQuestionsLabel: UILabel!
+    
+    
+    @IBAction func GameTimerOnOffSwith(_ sender: UISwitch) {
+        if sender.isOn == true {
+            Game.shared.timerPosition = 1
+            GameTimerOnOffLabel.textColor = .systemGreen
+        } else if sender.isOn == false {
+            Game.shared.timerPosition = 0
+            GameTimerOnOffLabel.textColor = .systemGray5
+        }
+    }
     
     @IBAction func ShuffleQuestionsSwith(_ sender: UISwitch) {
-        
+        //перенести функционал в модель использовать Delegate
         if sender.isOn == true {
             ShaffleQuestionsLabel.textColor = .systemGreen
             Game.shared.shufflePosition = 1
-            
             DispatchQueue.main.async {
                 Game.shared.questions = self.dataCaretaker.retrieveQuestions()
-                Game.shared.questions?.shuffle()
             }
         } else if sender.isOn == false {
             ShaffleQuestionsLabel.textColor = .systemGray5
             Game.shared.shufflePosition = 0
-            
             DispatchQueue.main.async {
                 Game.shared.questions = self.dataCaretaker.retrieveQuestions()
             }
         }
-        
-    //    self.dataCaretaker.shufflePosition
-
-        
     }
-    
-    @IBOutlet weak var ShaffleQuestionsLabel: UILabel!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-       // UIView.appearance().semanticContentAttribute = .forceLeftToRight
-        
         Game.shared.results = self.dataCaretaker.retrieveResults()
-        
         Game.shared.questions = self.dataCaretaker.retrieveQuestions()
-                
+        
+        // перенести функционал в модель
         if Game.shared.questions?.count == 0 {
-            Game.shared.getQuestions(shuffle: false)
+            Game.shared.getQuestions()
             if Game.shared.questions != nil {
                 self.dataCaretaker.saveQuestions(questions: Game.shared.questions!)
             }
         }
         
-//        guard let shuffle = Game.shared.readUserSetup() else {
-//            self.ShuffleQuestionSwitchControl.isOn = false
-//            Game.shared.shuffleQuestions = false
-//            Game.shared.saveUserSetup(shuffle: Game.shared.shuffleQuestions)
-//            return }
-        
-       // Game.shared.shuffleQuestions = self.dataCaretaker.shufflePosition
-        
+        // перенести функционал в модель
         if Game.shared.shufflePosition == 1 {
-           self.ShuffleQuestionSwitchControl.isOn = true
-            Game.shared.questions?.shuffle()
-
+            self.ShuffleQuestionSwitchControl.isOn = true
+            ShaffleQuestionsLabel.textColor = .systemGreen
         }
-      
-//            switch Game.shared.shuffleQuestions {
-//            case true?:
-//                self.ShuffleQuestionSwitchControl.isOn = true
-//                Game.shared.shuffleQuestions = true
-//            case false?:
-//                self.ShuffleQuestionSwitchControl.isOn = false
-//                Game.shared.shuffleQuestions = false
-//            case .none:
-//                self.ShuffleQuestionSwitchControl.isOn = false
-//                Game.shared.shuffleQuestions = false
-//                return
-//        }
-    
-            
-       
         
+        if Game.shared.timerPosition == 1 {
+            self.GameTimerOnOffSwithControl.isOn = true
+            GameTimerOnOffLabel.textColor = .systemGreen
+        }
     }
     
-//    override func viewDidDisappear(_ anibmated: Bool) {
-//
-//        self.dataCaretaker.saveUserSetup()
-//
-//    }
+    @IBAction func returnToGame(unwindSegue: UIStoryboardSegue) {
+        // почему без этой функции не работает unwind segue???
+    }
     
     
-
 }

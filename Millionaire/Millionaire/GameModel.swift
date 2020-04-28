@@ -6,13 +6,17 @@
 //  Copyright © 2020 Macrohard. All rights reserved.
 //
 
-import Foundation
+//import Foundation
+import UIKit
 
 final class Game {
     
     static let shared = Game()
     
     private init() { }
+    
+    
+    var biq = builtinQuestions()
     
     let firstAnswerCost = 100
     
@@ -36,6 +40,26 @@ final class Game {
         }
         //return (userDefaultsGet.object(forKey: "SHAFFLE") as? Int)!
     }
+    
+    
+    var timerPosition: Int {
+        get {
+            let userDefaultsGet = UserDefaults.standard
+            guard let timer = userDefaultsGet.object(forKey: "TIMER") as? Int else {
+                print("Ключ TIMER в UserDefaults не найден")
+                return 0 }
+            //  Game.shared.shuffleQuestions = shuffle
+            print("timerPositionGet \(timer)")
+            return timer
+        }
+        set {
+            //    Game.shared.shuffleQuestions = newValue
+            UserDefaults.standard.set(newValue, forKey: "TIMER")
+            print("timerPositionSet \(newValue)")
+            
+        }
+        //return (userDefaultsGet.object(forKey: "SHAFFLE") as? Int)!
+    }
     // var shuffleQuestions: Int = 0
     
     // массив вопросов, сохраняем в UD и загружаем из UD
@@ -45,43 +69,36 @@ final class Game {
     var results : [GameSession]?
     
     
-    
-    
-    func getQuestions(shuffle: Bool) {
+    func getQuestions() {
         
-        var questionBase = [Question]()
-        let question1 = Question(question: "1+1", rightAnswer: "2", wrongAnswer1: "3", wrongAnsver2: "4", wrongAnsver3: "5")
-        let question2 = Question(question: "1+2", rightAnswer: "3", wrongAnswer1: "4", wrongAnsver2: "5", wrongAnsver3: "6")
-        let question3 = Question(question: "1+3", rightAnswer: "4", wrongAnswer1: "5", wrongAnsver2: "6", wrongAnsver3: "7")
-        let question4 = Question(question: "1+4", rightAnswer: "5", wrongAnswer1: "6", wrongAnsver2: "7", wrongAnsver3: "8")
-        let question5 = Question(question: "1+5", rightAnswer: "6", wrongAnswer1: "7", wrongAnsver2: "8", wrongAnsver3: "9")
-        let question6 = Question(question: "1+6", rightAnswer: "7", wrongAnswer1: "8", wrongAnsver2: "9", wrongAnsver3: "10")
-        let question7 = Question(question: "1+7", rightAnswer: "8", wrongAnswer1: "9", wrongAnsver2: "10", wrongAnsver3: "11")
-        let question8 = Question(question: "1+8", rightAnswer: "9", wrongAnswer1: "10", wrongAnsver2: "11", wrongAnsver3: "12")
-        let question9 = Question(question: "1+9", rightAnswer: "10", wrongAnswer1: "11", wrongAnsver2: "12", wrongAnsver3: "13")
-        let question10 = Question(question: "1+10", rightAnswer: "11", wrongAnswer1: "12", wrongAnsver2: "13", wrongAnsver3: "14")
+      //  var questionBase = [Question]()
         
-        
-        questionBase.append(question1)
-        questionBase.append(question2)
-        questionBase.append(question3)
-        questionBase.append(question4)
-        questionBase.append(question5)
-        questionBase.append(question6)
-        questionBase.append(question7)
-        questionBase.append(question8)
-        questionBase.append(question9)
-        questionBase.append(question10)
-        
-        if shuffle {
-            questionBase.shuffle()
-            //  questionBase.shuffle()
-            //  questionBase.shuffle()
-        }
-        
-        questions = questionBase
+        let question1 = Question(question: biq.question1, rightAnswer: biq.rightAnswer1, wrongAnswer1: biq.wrongAnswer1_1, wrongAnsver2:  biq.wrongAnswer1_2, wrongAnsver3:  biq.wrongAnswer1_3)
+        let question2 = Question(question: biq.question2, rightAnswer: biq.rightAnswer2, wrongAnswer1: biq.wrongAnswer2_1, wrongAnsver2:  biq.wrongAnswer2_2, wrongAnsver3:  biq.wrongAnswer2_3)
+        let question3 = Question(question: biq.question3, rightAnswer: biq.rightAnswer3, wrongAnswer1: biq.wrongAnswer3_1, wrongAnsver2:  biq.wrongAnswer3_2, wrongAnsver3:  biq.wrongAnswer3_3)
+        let question4 = Question(question: biq.question4, rightAnswer: biq.rightAnswer4, wrongAnswer1: biq.wrongAnswer4_1, wrongAnsver2:  biq.wrongAnswer4_2, wrongAnsver3:  biq.wrongAnswer4_3)
+        let question5 = Question(question: biq.question5, rightAnswer: biq.rightAnswer5, wrongAnswer1: biq.wrongAnswer5_1, wrongAnsver2:  biq.wrongAnswer5_2, wrongAnsver3:  biq.wrongAnswer5_3)
+        let question6 = Question(question: biq.question6, rightAnswer: biq.rightAnswer6, wrongAnswer1: biq.wrongAnswer6_1, wrongAnsver2:  biq.wrongAnswer6_2, wrongAnsver3:  biq.wrongAnswer6_3)
+        let question7 = Question(question: biq.question7, rightAnswer: biq.rightAnswer7, wrongAnswer1: biq.wrongAnswer7_1, wrongAnsver2:  biq.wrongAnswer7_2, wrongAnsver3:  biq.wrongAnswer7_3)
+        let question8 = Question(question: biq.question8, rightAnswer: biq.rightAnswer8, wrongAnswer1: biq.wrongAnswer8_1, wrongAnsver2:  biq.wrongAnswer8_2, wrongAnsver3:  biq.wrongAnswer8_3)
+        let question9 = Question(question: biq.question9, rightAnswer: biq.rightAnswer9, wrongAnswer1: biq.wrongAnswer9_1, wrongAnsver2:  biq.wrongAnswer9_2, wrongAnsver3:  biq.wrongAnswer9_3)
+        let question10 = Question(question: biq.question10, rightAnswer: biq.rightAnswer10, wrongAnswer1: biq.wrongAnswer10_1, wrongAnsver2:  biq.wrongAnswer10_2, wrongAnsver3:  biq.wrongAnswer10_3)
         
         
+        questions = [Question]()
+        
+        questions!.append(question1)
+        questions!.append(question2)
+        questions!.append(question3)
+        questions!.append(question4)
+        questions!.append(question5)
+        questions!.append(question6)
+        questions!.append(question7)
+        questions!.append(question8)
+        questions!.append(question9)
+        questions!.append(question10)
+        
+      //  questions = questionBase
         
     }
     
@@ -95,34 +112,6 @@ final class Game {
     //        } else { print("Вопрос сформирован неправильно, проверьте заполнение всех необходимых полей") }
     //
     //    }
-    //
-    
-    //    func getGameResults() {
-    //
-    //        var resultsBase =  [GameSession]()
-    //
-    //
-    //
-    //        let result1 = GameSession(answerCost: firstAnswerCost, randomQuestions: false, rightAnswerCount: 5, prizeCount: 6500, peopleHelpUse: true, callToFriendUse: false, fiftyFiftyUse: false)
-    //        let result2 = GameSession(answerCost: firstAnswerCost, randomQuestions: true, rightAnswerCount: 4, prizeCount: 3200, peopleHelpUse: true, callToFriendUse: true, fiftyFiftyUse: false)
-    //        let result3 = GameSession(answerCost: firstAnswerCost, randomQuestions: false, rightAnswerCount: 3, prizeCount: 1800, peopleHelpUse: true, callToFriendUse: true, fiftyFiftyUse: true)
-    //
-    //        resultsBase.append(result1)
-    //        resultsBase.append(result2)
-    //        resultsBase.append(result3)
-    //
-    //        results = resultsBase
-    //
-    //    }
-    //
-    //    func saveGameResults(newGame: GameSession) {
-    //
-    //        if results != nil {
-    //            results?.append(newGame)
-    //            print("Результат игры записан в базу")
-    //        }
-    //    }
-    
     
 }
 
@@ -134,17 +123,68 @@ struct Question: Equatable, Codable {
     var wrongAnsver2 : String?
     var wrongAnsver3 : String?
     
-    //init() {}
 }
 
-
-//struct Results: Codable {
-//
-//    var dateOfGame: String?
-//    var prizeCount: Int?
-//    var rightAnswerCount: Int?
-//    var allQuestionsCount: Int?
-//    var promptUseCount: Int?
-//    var randomQuestions: Bool?
-//    
-//}
+struct builtinQuestions {
+    
+    let question1 = "Какая библиотека нужна для создания пользовательского интерфейса?"
+    let rightAnswer1 = "UIKit"
+    let wrongAnswer1_1 = "GameplayKit"
+    let wrongAnswer1_2 = "UI"
+    let wrongAnswer1_3 = "SpriteKit"
+    
+    let question2 = "Где правильно создан массив со строками?"
+    let rightAnswer2 = "var words = [String]()"
+    let wrongAnswer2_1 = "var words = [String]"
+    let wrongAnswer2_2 = "var words : String = ()"
+    let wrongAnswer2_3 = "var words = [](String)"
+    
+    let question3 = "Где неправильно добавляются элементы в массив?"
+    let rightAnswer3 = "Все варианты верные"
+    let wrongAnswer3_1 = "digits += [8.23, 5, 2.96]"
+    let wrongAnswer3_2 = "digits[0] = 0.5"
+    let wrongAnswer3_3 = "digits.insert (9.4, at: 1)"
+    
+    let question4 = "Чем отличаются операторы break и continue в цикле?"
+    let rightAnswer4 = "Continue - пропускает, break - выходит"
+    let wrongAnswer4_1 = "У них нет никакой разницы"
+    let wrongAnswer4_2 = "Они используются в разных циклах"
+    let wrongAnswer4_3 = "Break - пропускает, continue - выходит"
+    
+    let question5 = "Сколько циклов существует в Swift?"
+    let rightAnswer5 = "3"
+    let wrongAnswer5_1 = "2"
+    let wrongAnswer5_2 = "4"
+    let wrongAnswer5_3 = "5"
+    
+    let question6 = "Какая программа используется для Swift?"
+    let rightAnswer6 = "Xcode"
+    let wrongAnswer6_1 = "Xamarin Studio"
+    let wrongAnswer6_2 = "Visual Studio"
+    let wrongAnswer6_3 = "Любая IDE подойдет"
+    
+    let question7 = "Где правильно создана переменная?"
+    let rightAnswer7 = "var x : Float = 2.56"
+    let wrongAnswer7_1 = "float x = 2.56"
+    let wrongAnswer7_2 = "x = 2.56"
+    let wrongAnswer7_3 = "var x = 2.56 : Float"
+    
+    let question8 = "Какая библиотека используется для создания игр?"
+    let rightAnswer8 = "GameplayKit и SpriteKit"
+    let wrongAnswer8_1 = "SpriteKit"
+    let wrongAnswer8_2 = "GameplayKit"
+    let wrongAnswer8_3 = "UIKit"
+    
+    let question9 = "Что можно создавать на Swift?"
+    let rightAnswer9 = "Игры и ПО для всей продукции Apple"
+    let wrongAnswer9_1 = "Игры и ПО для всей продукции Apple"
+    let wrongAnswer9_2 = "Приложения для iPhone и iPad"
+    let wrongAnswer9_3 = "Игры для компьютеров (Mac)"
+    
+    let question10 = "Что устраняют generics?"
+    let rightAnswer10 = "Проблему дублирования кода"
+    let wrongAnswer10_1 = "Проблему вывода данных"
+    let wrongAnswer10_2 = "Проблему ввода"
+    let wrongAnswer10_3 = "Проблему приведения типов"
+    
+}

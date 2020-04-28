@@ -18,12 +18,12 @@ class ResultCell: UITableViewCell {
     @IBOutlet weak var PromptsUseCountLabel: UILabel!
 
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-       // self.isSelected = false
-
-        // Initialization code
-    }
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//       // self.isSelected = false
+//
+//        // Initialization code
+//    }
 
 //    override func setSelected(_ selected: Bool, animated: Bool) {
 //        super.setSelected(selected, animated: animated)

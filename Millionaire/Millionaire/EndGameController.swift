@@ -21,41 +21,13 @@ class EndGameController: UIViewController {
     
     @IBOutlet weak var ShuffleQuestionsLabel: UILabel!
     
-    weak var gameSessionController: UIViewController!
-    
-    var gameWinName: String = "ИГРА ЗАКОНЧЕНА"
-    
     private let dataCaretaker = DataCaretaker()
 
-    
-    @IBAction func closeButton(_ sender: UIButton) {
-        self.dismiss(animated: true) {
-            
-           
-
-            self.gameSessionController.dismiss(animated: true, completion: nil)
-            Game.shared.game = nil
-           // print("Кол-во использованнных подсказок: \(Game.shared.game!.promtUseCount)")
-        }
-
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        if Game.shared.shuffleQuestions {
-//            ShuffleQuestionsLabel.text = "Да"
-//        } else {
-//            ShuffleQuestionsLabel.text = "Нет"
-//        }
-        
-        //Game.shared.game!.randomQuestions = Game.shared.game!.randomQuestionsF()
         Game.shared.game!.promtUseCount = Game.shared.game!.promtUseCountF()
-      //  Game.shared.game!.randomQuestionsString = Game.shared.game!.randomQuestionsStringF()
         
-        
-        GameOverLabel.text = gameWinName
         GamePrizeLabel.text = String(Game.shared.game!.prizeCount) + " рублей"
         RightAnswerCountLabel.text = "правильных ответов " + String(Game.shared.game!.rightAnswerCount)
         AllAnswersCountLabel.text = "всего вопросов " + String(Game.shared.questions!.count)
@@ -64,20 +36,15 @@ class EndGameController: UIViewController {
         if Game.shared.game!.fiftyFiftyUse { FiftyFiftyUseLabel.textColor = .systemYellow }
         ShuffleQuestionsLabel.text = Game.shared.game!.randomQuestionsStringF()
         
-     
-//                if Game.shared.shufflePosition == 1 {
-//                    ShuffleQuestionsLabel.text = "да" }
-//                else {
-//                    ShuffleQuestionsLabel.text = "нет" }
-   
-      //  ShuffleQuestionsLabel.text =   Game.shared.game!.randomQuestionsStringF()
-
+        if Game.shared.questions!.count == Game.shared.game!.rightAnswerCount {
+            GameOverLabel.text = "ВЫ ВЫИГРАЛИ ИГРУ!"
+        } else {
+            GameOverLabel.text = "ИГРА ЗАКОНЧЕНА"
+        }
         
         Game.shared.results?.append(Game.shared.game!)
         self.dataCaretaker.saveResults(results: Game.shared.results!)
-        // Game.shared.saveGameResults(newGame:  Game.shared.game!)
         
     }
     
-
 }

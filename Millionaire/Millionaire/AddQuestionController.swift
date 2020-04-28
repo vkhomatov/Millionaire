@@ -15,74 +15,81 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var WrongAnswer1TextField: UITextField!
     @IBOutlet weak var WrongAnswer2TextField: UITextField!
     @IBOutlet weak var WrongAnswer3TextField: UITextField!
-    
     @IBOutlet weak var QuestionsTableView: UITableView!
     
     private var newQuestion = Question()
-    
     private let dataCaretaker = DataCaretaker()
+    private var countQuestion: Int  = 0
     
-    
-    @IBAction func AddQuestionButton(_ sender: UIButton) {
+    // функция вроверки на правильность ввода и сохранения нового вопроса в базе ( вынести в модель и использовать Delegate )
+    func saveNewQuestion(question : String?, rightAnswer : String?, wrongAnswer1 : String?, wrongAnswer2 : String?, wrongAnswer3 : String?) -> Int {
         
-        if Game.shared.questions == nil { return  }
-        
-        //обернуть проверку в функцию
-        if QuestionTextField.text == "" { QuestionTextField.placeholder = "Введите текст вопроса"
-            return }
-        
-        newQuestion.question = QuestionTextField.text!
-        
-        //        let flatQuestions = Game.shared.questions!.compactMap { $0.question }
-        //
-        //        if flatQuestions.contains(newQuestion.question!) {
-        //            QuestionTextField.text = ""
-        //            QuestionTextField.placeholder = "Вопрос уже существует в базе"
-        //            print("Вопрос \(newQuestion) уже существует в базе")
-        //            return }
-        
+        if question == "" { return 1 }
+        if rightAnswer == "" { return 2 }
+        if wrongAnswer1 == "" { return 3 }
+        if wrongAnswer2 == "" { return 4 }
+        if wrongAnswer3 == "" { return 5 }
         
         for count in 0...Game.shared.questions!.count-1 {
-            if Game.shared.questions![count].question == newQuestion.question {
-                QuestionTextField.text = ""
-                QuestionTextField.placeholder = "Вопрос уже существует в базе"
-                let indexPath = IndexPath(row: count, section: 0)
-                
-                DispatchQueue.main.async {
-                    self.QuestionsTableView.scrollToRow(at: indexPath, at: .none, animated: true)
-                    
-                }
-                return
+            if Game.shared.questions![count].question == question {
+                self.countQuestion = count
+                return 6
             }
         }
         
-        if RightAnswerTextField.text == "" { RightAnswerTextField.placeholder = "Введите правильный ответ"
-            return }
-        if WrongAnswer1TextField.text == "" { WrongAnswer1TextField.placeholder = "Введите неправильный ответ №1"
-            return }
-        if WrongAnswer2TextField.text == "" { WrongAnswer2TextField.placeholder = "Введите неправильный ответ №2"
-            return }
-        if WrongAnswer3TextField.text == "" { WrongAnswer3TextField.placeholder = "Введите неправильный ответ №3"
-            return }
-        
-        newQuestion.rightAnswer = RightAnswerTextField.text!
-        newQuestion.wrongAnswer1 = WrongAnswer1TextField.text!
-        newQuestion.wrongAnsver2 = WrongAnswer2TextField.text!
-        newQuestion.wrongAnsver3 = WrongAnswer3TextField.text!
+        var newQuestion = Question()
+        newQuestion.question = question
+        newQuestion.rightAnswer = rightAnswer
+        newQuestion.wrongAnswer1 = wrongAnswer1
+        newQuestion.wrongAnsver2 = wrongAnswer2
+        newQuestion.wrongAnsver3 = wrongAnswer3
         
         if Game.shared.questions != nil {
             Game.shared.questions?.append(newQuestion)
             dataCaretaker.saveQuestions(questions: Game.shared.questions!)
-        }
+        } else { return 7 }
         
-        //Game.shared.saveQuestion(newQuestion: newQuestion)
+        return 0
         
-        QuestionsTableView.reloadData()
+    }
+    
+    @IBAction func AddQuestionButton(_ sender: UIButton) {
         
-        let indexPath = IndexPath(row: Game.shared.questions!.count-1, section: 0)
+        if Game.shared.questions == nil {
+            print("Ошибка загрузки базы с вопросами")
+            return }
         
-        DispatchQueue.main.async {
-            self.QuestionsTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        switch saveNewQuestion(question: QuestionTextField.text, rightAnswer: RightAnswerTextField.text, wrongAnswer1: WrongAnswer1TextField.text, wrongAnswer2: WrongAnswer2TextField.text, wrongAnswer3: WrongAnswer3TextField.text) {
+        case 0:
+            print("Новый вопрос сохранен в базе")
+            QuestionsTableView.reloadData()
+            let indexPath = IndexPath(row: Game.shared.questions!.count-1, section: 0)
+            DispatchQueue.main.async { self.QuestionsTableView.scrollToRow(at: indexPath, at: .bottom, animated: true) }
+            break
+        case 1:
+            QuestionTextField.placeholder = "Введите текст вопроса"
+            break
+        case 2:
+            RightAnswerTextField.placeholder = "Введите правильный ответ"
+            break
+        case 3:
+            WrongAnswer1TextField.placeholder = "Введите неправильный ответ №1"
+            break
+        case 4:
+            WrongAnswer2TextField.placeholder = "Введите неправильный ответ №2"
+            break
+        case 5:
+            WrongAnswer3TextField.placeholder = "Введите неправильный ответ №3"
+            break
+        case 6:
+            QuestionTextField.placeholder = "Вопрос уже существует в базе"
+            QuestionTextField.text = ""
+            let indexPath = IndexPath(row: countQuestion, section: 0)
+            DispatchQueue.main.async { self.QuestionsTableView.scrollToRow(at: indexPath, at: .none, animated: true) }
+        case 7:
+            print("Объект вопросы не был создан")
+        default:
+            break
         }
         
     }
@@ -91,7 +98,6 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         QuestionsTableView.dataSource = self
         QuestionsTableView.delegate = self
-        
     }
     
     
@@ -103,39 +109,34 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = QuestionsTableView.dequeueReusableCell(withIdentifier: "QuestionCell", for: indexPath) as! QuestionCell
-        
         if Game.shared.questions == nil { return cell }
-        
         cell.QuestionNameLabel.text = Game.shared.questions![indexPath.row].question
-        
-//        if indexPath.row < 10 {
-//            cell.
-//        }
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-           // if Game.shared.questions != nil && indexPath.row > 10
-           // {
+            if Game.shared.questions != nil
+            {
                 Game.shared.questions!.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-            //}
+                dataCaretaker.saveQuestions(questions: Game.shared.questions!)
+                
+            }
         }
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        
-        if indexPath.row < 10 {
-            return UITableViewCell.EditingStyle.none
-        } else {
-            return UITableViewCell.EditingStyle.delete
-        }
-        
-    }
-    
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//
+//        if indexPath.row < 10 {
+//            return UITableViewCell.EditingStyle.none
+//        } else {
+//            return UITableViewCell.EditingStyle.delete
+//        }
+//
+//    }
+//
     
     
 }

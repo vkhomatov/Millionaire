@@ -6,6 +6,10 @@
 //  Copyright © 2020 Macrohard. All rights reserved.
 //
 
+protocol ShuffleQuestionsStrategy {
+    func shuffle()
+}
+
 import UIKit
 
 class GameSessionController: UIViewController {
@@ -21,17 +25,25 @@ class GameSessionController: UIViewController {
     @IBOutlet weak var Answer3Button: UIButton!
     @IBOutlet weak var Answer4Button: UIButton!
     
+    @IBOutlet weak var ToEndOfGameLabel: UILabel!
+    @IBOutlet weak var TimeLabel: UILabel!
     @IBOutlet weak var PeopleHelpButton: UIButton!
     @IBOutlet weak var CallToFriendButton: UIButton!
     @IBOutlet weak var FiftyFiftyButton: UIButton!
     
-   // private var gameSession = GameSession(answerCost: Game.shared.firstAnswerCost, randomQuestions: false, rightAnswerCount: 0, prizeCount: 0, peopleHelpUse: false, callToFriendUse: false, fiftyFiftyUse: false)
+    // !!!!!!!!!!!! ПЕРЕНЕСТИ В МОДЕЛЬ ВЕСЬ ФУНКЦИОНАЛ ИГРОВОЙ СЕССИИ, ИСПОЛЬЗОВАТЬ DELEGATE !!!!!!!!!!!!!!
+    
+    var shuffleStrategy: ShuffleQuestionsStrategy = yesShuffle()
     
     private var gameSession = GameSession(answerCost: Game.shared.firstAnswerCost)
     
     private var answerButtons = [UIButton]()
     
     private var gameWin: Bool = false
+    
+    private var timer:Timer?
+    var timeLeft = Game.shared.questions!.count * 60
+    
     
     @IBAction func AnswerButtonPush(_ sender: UIButton) {
         
@@ -81,7 +93,7 @@ class GameSessionController: UIViewController {
             case CallToFriendButton.titleLabel!.text:
                 Game.shared.game!.callToFriendUse = true
                 PeopleAndFriendHelpPrompt(people: false)
-
+                
             case FiftyFiftyButton.titleLabel!.text:
                 Game.shared.game!.fiftyFiftyUse = true
                 FiftyFiftyPrompt(promptCount: 2)
@@ -133,20 +145,30 @@ class GameSessionController: UIViewController {
         if people  {
             for button in 0...answerButtons.count-1 {
                 if answerButtons[button].titleLabel?.text != currentQuestion.rightAnswer && wrongQuestionsButtons.count > 2 {
-                        wrongQuestionsButtons.remove(at: button)
+                    wrongQuestionsButtons.remove(at: button)
                 }
             }
         }
         
         wrongQuestionsButtons.randomElement()?.titleLabel?.textColor = .systemGreen
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         Game.shared.game = gameSession
         Game.shared.game!.dateGame = Game.shared.game!.dateGameF()
-
+        
+        // перенести функционал в модель
+        if Game.shared.shufflePosition == 1 {
+            self.shuffleStrategy.shuffle()
+        }
+        
+        if Game.shared.timerPosition == 1 {
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
+            ToEndOfGameLabel.isHidden = false
+            TimeLabel.isHidden = false
+        }
+        
         answerButtons.append(Answer1Button)
         answerButtons.append(Answer2Button)
         answerButtons.append(Answer3Button)
@@ -168,7 +190,7 @@ class GameSessionController: UIViewController {
         PeopleHelpButton.isEnabled = !Game.shared.game!.peopleHelpUse
         CallToFriendButton.isEnabled = !Game.shared.game!.callToFriendUse
         FiftyFiftyButton.isEnabled = !Game.shared.game!.fiftyFiftyUse
-
+        
         answerButtons.shuffle()
         
         if Game.shared.questions != nil && Game.shared.game!.questionCount <= Game.shared.questions!.count {
@@ -196,22 +218,23 @@ class GameSessionController: UIViewController {
         
     }
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    @objc func onTimer()
+    {
+        timeLeft -= 1
+        TimeLabel.text = timeString(time: TimeInterval(timeLeft))
         
-        if segue.identifier == "EndGameControllerSegue" {
-            
-            guard let gameController = segue.source as? GameSessionController else { return }
-            guard let endGameController = segue.destination as? EndGameController else { return }
-            
-            endGameController.gameSessionController = gameController
-            
-            if gameWin {
-                endGameController.gameWinName = "ВЫ ВЫИГРАЛИ ИГРУ!"
-                
-            }
-            
+        if timeLeft <= 0 {
+            timer?.invalidate()
+            timer = nil
+            Game.shared.game!.prizeCount = (Game.shared.game!.prizeCount - Game.shared.firstAnswerCost) / 2
+            performSegue(withIdentifier: "EndGameControllerSegue", sender: nil)
         }
+    }
+    
+    func timeString(time:TimeInterval) -> String {
+        let minutes = Int(time) / 60
+        let seconds = time - Double(minutes) * 60
+        return String(format:"%02i:%02i",minutes,Int(seconds))
     }
     
 }
@@ -222,3 +245,23 @@ class GameSessionController: UIViewController {
 //  self.present(endGameController, animated: true, completion: nil)
 //  Game.shared.game!.prizeCount = (Game.shared.game!.prizeCount - Game.shared.firstAnswerCost) / 2
 
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//        if segue.identifier == "EndGameControllerSegue" {
+//
+//            guard let gameController = segue.source as? GameSessionController else { return }
+//            guard let endGameController = segue.destination as? EndGameController else { return }
+//
+//          //  endGameController.gameSessionController = gameController
+//
+//            if gameWin {
+//                endGameController.gameWinName = "ВЫ ВЫИГРАЛИ ИГРУ!"
+//
+//            }
+//
+//        }
+//    }
+//
+//    @IBAction func returnToGameSession(unwindSegue: UIStoryboardSegue) {
+//
+//    }

@@ -10,8 +10,18 @@ import UIKit
 
 class ResultsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    private let dataCaretaker = DataCaretaker()
     
     @IBOutlet weak var ResultsTableView: UITableView!
+    
+    @IBAction func ClearResultsButton(_ sender: UIButton) {
+        if Game.shared.results != nil {
+            if Game.shared.results!.count > 0 {
+                Game.shared.results!.removeAll()
+                ResultsTableView.reloadData()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +42,18 @@ class ResultsController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         if Game.shared.results == nil  { return cell }
         
-        cell.DateLabel.text = Game.shared.results![indexPath.row].dateGame
-        cell.PrizeLabel.text = String(Game.shared.results![indexPath.row].prizeCount)
-        cell.RightAnswersCountLabel.text = String(Game.shared.results![indexPath.row].rightAnswerCount) + "/" + String(Game.shared.questions!.count)
-        cell.ShuffleAnswersLabel.text = Game.shared.results![indexPath.row].randomQuestionsString
-        cell.PromptsUseCountLabel.text = String(Game.shared.results![indexPath.row].promtUseCount)
+        if Game.shared.results!.count > 0 {
+            
+            cell.DateLabel.text = Game.shared.results![indexPath.row].dateGame
+            cell.PrizeLabel.text = String(Game.shared.results![indexPath.row].prizeCount)
+            cell.RightAnswersCountLabel.text = String(Game.shared.results![indexPath.row].rightAnswerCount) + "/" + String(Game.shared.questions!.count)
+            cell.ShuffleAnswersLabel.text = Game.shared.results![indexPath.row].randomQuestionsString
+            cell.PromptsUseCountLabel.text = String(Game.shared.results![indexPath.row].promtUseCount)
+        }
         
         return cell
-
+        
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -49,6 +63,7 @@ class ResultsController: UIViewController, UITableViewDelegate, UITableViewDataS
             {
                 Game.shared.results!.remove(at: indexPath.row)
                 ResultsTableView.deleteRows(at: [indexPath], with: .fade)
+                dataCaretaker.saveResults(results: Game.shared.results!)
             }
         }
     }
