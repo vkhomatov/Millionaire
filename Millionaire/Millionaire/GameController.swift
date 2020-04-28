@@ -73,6 +73,7 @@ class GameController: UIViewController {
     
     @IBAction func returnToGame(unwindSegue: UIStoryboardSegue) {
         // почему без этой функции не работает unwind segue???
+        Game.shared.game = nil
     }
     
     

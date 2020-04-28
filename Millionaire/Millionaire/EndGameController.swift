@@ -26,25 +26,25 @@ class EndGameController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Game.shared.game!.promtUseCount = Game.shared.game!.promtUseCountF()
+        Game.shared.game!.result.promtUseCount = Game.shared.game!.promtUseCountF()
         
-        GamePrizeLabel.text = String(Game.shared.game!.prizeCount) + " рублей"
-        RightAnswerCountLabel.text = "правильных ответов " + String(Game.shared.game!.rightAnswerCount)
+        GamePrizeLabel.text = String(Game.shared.game!.result.prizeCount) + " рублей"
+        RightAnswerCountLabel.text = "правильных ответов " + String(Game.shared.game!.result.rightAnswerCount)
         AllAnswersCountLabel.text = "всего вопросов " + String(Game.shared.questions!.count)
-        if Game.shared.game!.peopleHelpUse { HelpPeopleUseLabel.textColor = .systemYellow }
-        if Game.shared.game!.callToFriendUse { CallToFriendUseLabel.textColor = .systemYellow }
-        if Game.shared.game!.fiftyFiftyUse { FiftyFiftyUseLabel.textColor = .systemYellow }
+        if Game.shared.game!.result.peopleHelpUse { HelpPeopleUseLabel.textColor = .systemYellow }
+        if Game.shared.game!.result.callToFriendUse { CallToFriendUseLabel.textColor = .systemYellow }
+        if Game.shared.game!.result.fiftyFiftyUse { FiftyFiftyUseLabel.textColor = .systemYellow }
         ShuffleQuestionsLabel.text = Game.shared.game!.randomQuestionsStringF()
         
-        if Game.shared.questions!.count == Game.shared.game!.rightAnswerCount {
+        if Game.shared.questions!.count == Game.shared.game!.result.rightAnswerCount {
             GameOverLabel.text = "ВЫ ВЫИГРАЛИ ИГРУ!"
         } else {
             GameOverLabel.text = "ИГРА ЗАКОНЧЕНА"
         }
         
-        Game.shared.results?.append(Game.shared.game!)
+        Game.shared.results?.append(Game.shared.game!.result)
         self.dataCaretaker.saveResults(results: Game.shared.results!)
-        
+                
     }
     
 }

@@ -6,11 +6,6 @@
 //  Copyright © 2020 Macrohard. All rights reserved.
 //
 
-//protocol GameSessionDelegate: class {
-//   func nextQuestion(withResult result: Int)
-//}
-
-
 protocol ShuffleQuestionsStrategy {
     func shuffle()
 }
@@ -36,8 +31,6 @@ class GameSessionController: UIViewController {
     @IBOutlet weak var CallToFriendButton: UIButton!
     @IBOutlet weak var FiftyFiftyButton: UIButton!
     
-
-    
     // !!!!!!!!!!!! ПЕРЕНЕСТИ В МОДЕЛЬ ВЕСЬ ФУНКЦИОНАЛ ИГРОВОЙ СЕССИИ, ИСПОЛЬЗОВАТЬ DELEGATE !!!!!!!!!!!!!!
     
     var shuffleStrategy: ShuffleQuestionsStrategy = yesShuffle()
@@ -46,7 +39,7 @@ class GameSessionController: UIViewController {
     
     private var answerButtons = [UIButton]()
     
-  //  private var gameWin: Bool = false
+    private var gameWin: Bool = false
     
     private var timer:Timer?
     var timeLeft = Game.shared.questions!.count * 60
@@ -63,49 +56,46 @@ class GameSessionController: UIViewController {
             //перенести функционал в модель, подумать как лучше это сделать
             
             switch answer {
+            case Game.shared.questions![Game.shared.game!.questionCount-1].rightAnswer:
                 
-            case Game.shared.questions![Game.shared.game!.result.questionCount-1].rightAnswer:
+                print("Вопрос № \(Game.shared.game!.questionCount), правильный ответ: \(String( Game.shared.questions![Game.shared.game!.questionCount-1].rightAnswer!))")
                 
-              //  print("Вопрос № \(Game.shared.game!.questionCount), правильный ответ: \(String( Game.shared.questions![Game.shared.game!.questionCount-1].rightAnswer!))")
-                
-                if  Game.shared.game!.result.questionCount == Game.shared.questions!.count {
-                    Game.shared.game!.result.rightAnswerCount += 1
+                if  Game.shared.game!.questionCount == Game.shared.questions!.count {
+                    Game.shared.game!.rightAnswerCount += 1
                     
-                   // gameWin = true
+                    gameWin = true
                     
                     performSegue(withIdentifier: "EndGameControllerSegue", sender: nil)
-               //     print("Игра закончена, Вы победили!")
+                    print("Игра закончена, Вы победили!")
                     
                 } else {
                     nextQuestion()
-                    Game.shared.game!.result.rightAnswerCount += 1
+                    Game.shared.game!.rightAnswerCount += 1
                 }
-            
-            //
-            default:
-               // print("Неправильный ответ, правильный ответ: \(String(describing: Game.shared.questions![Game.shared.game!.questionCount-1].rightAnswer))")
                 
-                Game.shared.game!.result.prizeCount = (Game.shared.game!.result.prizeCount - Game.shared.firstAnswerCost) / 2
+            default:
+                print("Неправильный ответ, правильный ответ: \(String(describing: Game.shared.questions![Game.shared.game!.questionCount-1].rightAnswer))")
+                
+                Game.shared.game!.prizeCount = (Game.shared.game!.prizeCount - Game.shared.firstAnswerCost) / 2
                 performSegue(withIdentifier: "EndGameControllerSegue", sender: nil)
             }
         }
     }
     
-    //
     @IBAction func PromtButtonPush(_ sender: UIButton) {
         if let answer = sender.currentTitle {
             switch answer {
                 
             case PeopleHelpButton.titleLabel!.text:
-                Game.shared.game!.result.peopleHelpUse = true
+                Game.shared.game!.peopleHelpUse = true
                 PeopleAndFriendHelpPrompt(people: true)
                 
             case CallToFriendButton.titleLabel!.text:
-                Game.shared.game!.result.callToFriendUse = true
+                Game.shared.game!.callToFriendUse = true
                 PeopleAndFriendHelpPrompt(people: false)
                 
             case FiftyFiftyButton.titleLabel!.text:
-                Game.shared.game!.result.fiftyFiftyUse = true
+                Game.shared.game!.fiftyFiftyUse = true
                 FiftyFiftyPrompt(promptCount: 2)
                 
             default:
@@ -123,14 +113,14 @@ class GameSessionController: UIViewController {
         FiftyFiftyButton.isEnabled = false
         CallToFriendButton.isEnabled = false
         
-        let currentQuestion = Game.shared.questions![Game.shared.game!.result.questionCount-1]
-      //  print("Текущий вопрос \(currentQuestion.question!)")
+        let currentQuestion = Game.shared.questions![Game.shared.game!.questionCount-1]
+        print("Текущий вопрос \(currentQuestion.question!)")
         var wrongQuestionsButtons = answerButtons
         
         for button in 0...answerButtons.count-1 {
             if answerButtons[button].titleLabel?.text == currentQuestion.rightAnswer {
                 wrongQuestionsButtons.remove(at: button)
-              //  print("Правильный ответ \(String(answerButtons[button].titleLabel!.text!)) удален из списка блокировки")
+                print("Правильный ответ \(String(answerButtons[button].titleLabel!.text!)) удален из списка блокировки")
             }
         }
         
@@ -149,7 +139,7 @@ class GameSessionController: UIViewController {
         FiftyFiftyButton.isEnabled = false
         CallToFriendButton.isEnabled = false
         
-        let currentQuestion = Game.shared.questions![Game.shared.game!.result.questionCount-1]
+        let currentQuestion = Game.shared.questions![Game.shared.game!.questionCount-1]
         var wrongQuestionsButtons = answerButtons
         
         if people  {
@@ -166,9 +156,7 @@ class GameSessionController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Game.shared.game = gameSession
-        Game.shared.game!.result.dateGame = Game.shared.game!.dateGameF()
-        
-
+        Game.shared.game!.dateGame = Game.shared.game!.dateGameF()
         
         // перенести функционал в модель
         if Game.shared.shufflePosition == 1 {
@@ -189,7 +177,7 @@ class GameSessionController: UIViewController {
         
     }
     
-    // перенести функционал в модель
+    
     func nextQuestion() {
         
         // включение кнопок с вопросами после использования подсказок
@@ -199,30 +187,30 @@ class GameSessionController: UIViewController {
         }
         
         // включение кнопок с неиспользованными подсказками
-        PeopleHelpButton.isEnabled = !Game.shared.game!.result.peopleHelpUse
-        CallToFriendButton.isEnabled = !Game.shared.game!.result.callToFriendUse
-        FiftyFiftyButton.isEnabled = !Game.shared.game!.result.fiftyFiftyUse
+        PeopleHelpButton.isEnabled = !Game.shared.game!.peopleHelpUse
+        CallToFriendButton.isEnabled = !Game.shared.game!.callToFriendUse
+        FiftyFiftyButton.isEnabled = !Game.shared.game!.fiftyFiftyUse
         
         answerButtons.shuffle()
         
-        if Game.shared.questions != nil && Game.shared.game!.result.questionCount <= Game.shared.questions!.count {
+        if Game.shared.questions != nil && Game.shared.game!.questionCount <= Game.shared.questions!.count {
             
-            self.QuestionLabel.text = Game.shared.questions![Game.shared.game!.result.questionCount].question
-            self.answerButtons[0].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].rightAnswer, for: .normal)
-            self.answerButtons[1].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnswer1, for: .normal)
-            self.answerButtons[2].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnsver2, for: .normal)
-            self.answerButtons[3].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnsver3, for: .normal)
+            self.QuestionLabel.text = Game.shared.questions![Game.shared.game!.questionCount].question
+            self.answerButtons[0].setTitle(Game.shared.questions![Game.shared.game!.questionCount].rightAnswer, for: .normal)
+            self.answerButtons[1].setTitle(Game.shared.questions![Game.shared.game!.questionCount].wrongAnswer1, for: .normal)
+            self.answerButtons[2].setTitle(Game.shared.questions![Game.shared.game!.questionCount].wrongAnsver2, for: .normal)
+            self.answerButtons[3].setTitle(Game.shared.questions![Game.shared.game!.questionCount].wrongAnsver3, for: .normal)
             
-            if Game.shared.game!.result.questionCount < Game.shared.questions!.count {
+            if Game.shared.game!.questionCount < Game.shared.questions!.count {
                 
-                QuestionCountLabel.text = "ВОПРОС " + String(Game.shared.game!.result.questionCount + 1) + " из " + String(Game.shared.questions!.count)
-                AnswerCostLabel.text = "На кону " + String(Game.shared.game!.result.answerCost) + " рублей"
-                RightAswersLabel.text = "правильных ответов " + String(Game.shared.game!.result.questionCount)
-                PrizeCountLabel.text = "общий выигрыш  " + String(Game.shared.game!.result.prizeCount) + " рублей"
+                QuestionCountLabel.text = "ВОПРОС " + String(Game.shared.game!.questionCount + 1) + " из " + String(Game.shared.questions!.count)
+                AnswerCostLabel.text = "На кону " + String(Game.shared.game!.answerCost) + " рублей"
+                RightAswersLabel.text = "правильных ответов " + String(Game.shared.game!.questionCount)
+                PrizeCountLabel.text = "общий выигрыш  " + String(Game.shared.game!.prizeCount) + " рублей"
                 
-                Game.shared.game!.result.prizeCount += Game.shared.game!.result.answerCost
-                Game.shared.game!.result.questionCount += 1
-                Game.shared.game!.result.answerCost = Game.shared.game!.result.answerCost*2
+                Game.shared.game!.prizeCount += Game.shared.game!.answerCost
+                Game.shared.game!.questionCount += 1
+                Game.shared.game!.answerCost = Game.shared.game!.answerCost*2
                 
             }
             
@@ -230,8 +218,6 @@ class GameSessionController: UIViewController {
         
     }
     
-    
-    // перенести функционал в модель
     @objc func onTimer()
     {
         timeLeft -= 1
@@ -240,7 +226,7 @@ class GameSessionController: UIViewController {
         if timeLeft <= 0 {
             timer?.invalidate()
             timer = nil
-            Game.shared.game!.result.prizeCount = (Game.shared.game!.result.prizeCount - Game.shared.firstAnswerCost) / 2
+            Game.shared.game!.prizeCount = (Game.shared.game!.prizeCount - Game.shared.firstAnswerCost) / 2
             performSegue(withIdentifier: "EndGameControllerSegue", sender: nil)
         }
     }
@@ -252,10 +238,6 @@ class GameSessionController: UIViewController {
     }
     
 }
-
-
-
-
 
 
 // Демонстрацию нового UIViewController

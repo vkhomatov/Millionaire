@@ -45,7 +45,7 @@ final class DataCaretaker {
     
     // загрузка/выгрузка результатов игры
     
-    func saveResults(results: [GameSession]) {
+    func saveResults(results: [Result]) {
         do {
          let data = try self.encoder.encode(results)
             UserDefaults.standard.set(data, forKey: key2)
@@ -54,13 +54,13 @@ final class DataCaretaker {
         }
     }
     
-    func retrieveResults() -> [GameSession] {
+    func retrieveResults() -> [Result] {
         guard let data = UserDefaults.standard.data(forKey: key2) else {
             print("Не могу загрузить результаты игр")
             return []
         }
         do {
-            return try self.decoder.decode([GameSession].self, from: data)
+            return try self.decoder.decode([Result].self, from: data)
         } catch {
             print(error)
             return []

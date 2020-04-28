@@ -66,7 +66,7 @@ final class Game {
     var questions : [Question]?
     
     //массив результатов игр, сохраняем в UD и загружаем из UD
-    var results : [GameSession]?
+    var results : [Result]?
     
     
     func getQuestions() {
