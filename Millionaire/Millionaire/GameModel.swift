@@ -18,6 +18,7 @@ final class Game {
     
     var biq = builtinQuestions()
     
+    //цена первого вопроса
     let firstAnswerCost = 100
     
     var game: GameSession?

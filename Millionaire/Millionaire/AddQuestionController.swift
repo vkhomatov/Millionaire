@@ -62,28 +62,29 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         switch saveNewQuestion(question: QuestionTextField.text, rightAnswer: RightAnswerTextField.text, wrongAnswer1: WrongAnswer1TextField.text, wrongAnswer2: WrongAnswer2TextField.text, wrongAnswer3: WrongAnswer3TextField.text) {
         case 0:
             print("Новый вопрос сохранен в базе")
+            self.view.endEditing(true)
             QuestionsTableView.reloadData()
             let indexPath = IndexPath(row: Game.shared.questions!.count-1, section: 0)
             DispatchQueue.main.async { self.QuestionsTableView.scrollToRow(at: indexPath, at: .bottom, animated: true) }
-            break
         case 1:
             QuestionTextField.placeholder = "Введите текст вопроса"
-            break
+            QuestionTextField.becomeFirstResponder()
         case 2:
             RightAnswerTextField.placeholder = "Введите правильный ответ"
-            break
+            RightAnswerTextField.becomeFirstResponder()
         case 3:
             WrongAnswer1TextField.placeholder = "Введите неправильный ответ №1"
-            break
+            WrongAnswer1TextField.becomeFirstResponder()
         case 4:
             WrongAnswer2TextField.placeholder = "Введите неправильный ответ №2"
-            break
+            WrongAnswer2TextField.becomeFirstResponder()
         case 5:
             WrongAnswer3TextField.placeholder = "Введите неправильный ответ №3"
-            break
+            WrongAnswer3TextField.becomeFirstResponder()
         case 6:
             QuestionTextField.placeholder = "Вопрос уже существует в базе"
             QuestionTextField.text = ""
+            QuestionTextField.becomeFirstResponder()
             let indexPath = IndexPath(row: countQuestion, section: 0)
             DispatchQueue.main.async { self.QuestionsTableView.scrollToRow(at: indexPath, at: .none, animated: true) }
         case 7:
@@ -91,15 +92,21 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         default:
             break
         }
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         QuestionsTableView.dataSource = self
         QuestionsTableView.delegate = self
+        
+        let Tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DismissKeyboard))
+        view.addGestureRecognizer(Tap)
+        
     }
     
+    @objc func DismissKeyboard() {
+        self.view.endEditing(true)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let count =  Game.shared.questions?.count else  {
@@ -127,6 +134,7 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+// Отключает удаление встроенных вопросов
 //    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
 //
 //        if indexPath.row < 10 {

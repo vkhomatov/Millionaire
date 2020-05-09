@@ -17,6 +17,13 @@ class GameController: UIViewController {
     @IBOutlet weak var GameTimerOnOffSwithControl: UISwitch!
     @IBOutlet weak var ShaffleQuestionsLabel: UILabel!
     
+//    @IBAction func PlayButtonPush(_ sender: UIButton) {
+//
+////        if Game.shared.questions == nil || Game.shared.questions?.count == 0 {
+////
+////        }
+//
+//    }
     
     @IBAction func GameTimerOnOffSwith(_ sender: UISwitch) {
         if sender.isOn == true {
