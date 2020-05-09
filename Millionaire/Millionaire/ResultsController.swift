@@ -19,6 +19,8 @@ class ResultsController: UIViewController, UITableViewDelegate, UITableViewDataS
             if Game.shared.results!.count > 0 {
                 Game.shared.results!.removeAll()
                 ResultsTableView.reloadData()
+                dataCaretaker.saveResults(results: Game.shared.results!)
+
             }
         }
     }
