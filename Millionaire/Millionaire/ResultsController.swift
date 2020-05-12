@@ -33,8 +33,7 @@ class ResultsController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count =  Game.shared.results?.count else  {
-            return 0 }
+        guard let count = Game.shared.results?.count else  { return 0 }
         return count
     }
     

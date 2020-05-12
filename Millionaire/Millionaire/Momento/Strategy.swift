@@ -19,10 +19,16 @@ class yesShuffle: ShuffleQuestionsStrategy {
         if Game.shared.questions != nil {
             Game.shared.questions!.shuffle()
         }
-    
+
     }
 }
 
 
-
+//class yesShuffle: ShuffleQuestionsStrategy {
+//    func shuffle(questions: [Question]) -> [Question]? {
+//        return questions
+//    }
+//
+//
+//}
 

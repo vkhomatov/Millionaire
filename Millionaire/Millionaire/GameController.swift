@@ -40,23 +40,23 @@ class GameController: UIViewController {
         if sender.isOn == true {
             ShaffleQuestionsLabel.textColor = .systemGreen
             Game.shared.shufflePosition = 1
-            DispatchQueue.main.async {
-                Game.shared.questions = self.dataCaretaker.retrieveQuestions()
-            }
-        } else if sender.isOn == false {
+//            DispatchQueue.main.async {
+//                Game.shared.questions = self.dataCaretaker.retrieveQuestions()
+//            }
+        } else /*if sender.isOn == false*/ {
             ShaffleQuestionsLabel.textColor = .systemGray5
             Game.shared.shufflePosition = 0
-            DispatchQueue.main.async {
-                Game.shared.questions = self.dataCaretaker.retrieveQuestions()
-            }
+//            DispatchQueue.main.async {
+//                Game.shared.questions = self.dataCaretaker.retrieveQuestions()
+//            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Game.shared.results = self.dataCaretaker.retrieveResults()
-        Game.shared.questions = self.dataCaretaker.retrieveQuestions()
+       Game.shared.results = self.dataCaretaker.retrieveResults()
+       Game.shared.questions = self.dataCaretaker.retrieveQuestions()
         
         // перенести функционал в модель
         if Game.shared.questions?.count == 0 {
@@ -65,6 +65,8 @@ class GameController: UIViewController {
                 self.dataCaretaker.saveQuestions(questions: Game.shared.questions!)
             }
         }
+        
+    
         
         // перенести функционал в модель
         if Game.shared.shufflePosition == 1 {

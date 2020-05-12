@@ -721,9 +721,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="l0V-DX-R62" firstAttribute="bottom" secondItem="lXb-sn-DHW" secondAttribute="bottom" constant="30.5" id="2mV-uj-GW6"/>
+                            <constraint firstItem="XQe-aV-6wi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Mxu-ky-DVF" secondAttribute="bottom" constant="25" id="5c6-lr-wqb"/>
                             <constraint firstItem="L2c-wh-IT1" firstAttribute="top" relation="lessThanOrEqual" secondItem="hrd-8D-bh9" secondAttribute="bottom" constant="101.5" id="ATE-qA-5Gf"/>
                             <constraint firstItem="To4-zD-ywE" firstAttribute="top" relation="lessThanOrEqual" secondItem="L2c-wh-IT1" secondAttribute="bottom" constant="38" id="DaZ-R7-FrM"/>
-                            <constraint firstItem="v5B-C2-ueZ" firstAttribute="top" relation="lessThanOrEqual" secondItem="lcm-U0-DLh" secondAttribute="bottom" constant="45.5" id="FnF-x7-fes"/>
+                            <constraint firstItem="v5B-C2-ueZ" firstAttribute="top" relation="lessThanOrEqual" secondItem="lcm-U0-DLh" secondAttribute="bottom" priority="999" constant="45.5" id="FnF-x7-fes"/>
                             <constraint firstItem="hrd-8D-bh9" firstAttribute="centerX" secondItem="l0V-DX-R62" secondAttribute="centerX" constant="1.5" id="JJL-0Q-hgB"/>
                             <constraint firstItem="lcm-U0-DLh" firstAttribute="centerX" secondItem="l0V-DX-R62" secondAttribute="centerX" id="JbT-Rr-Dae"/>
                             <constraint firstItem="lXb-sn-DHW" firstAttribute="top" relation="lessThanOrEqual" secondItem="v5B-C2-ueZ" secondAttribute="bottom" constant="35" id="a1Z-dp-LQ7"/>

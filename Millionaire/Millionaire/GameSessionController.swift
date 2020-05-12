@@ -40,7 +40,8 @@ class GameSessionController: UIViewController {
     
     // !!!!!!!!!!!! ПЕРЕНЕСТИ В МОДЕЛЬ ВЕСЬ ФУНКЦИОНАЛ ИГРОВОЙ СЕССИИ, ИСПОЛЬЗОВАТЬ DELEGATE !!!!!!!!!!!!!!
     
-    var shuffleStrategy: ShuffleQuestionsStrategy = yesShuffle()
+    private let dataCaretaker = DataCaretaker()
+    private var shuffleStrategy: ShuffleQuestionsStrategy = yesShuffle()
     
     private var gameSession = GameSession(answerCost: Game.shared.firstAnswerCost)
     
@@ -48,8 +49,8 @@ class GameSessionController: UIViewController {
     
     //  private var gameWin: Bool = false
     
-    private var timer:Timer?
-    var timeLeft = Game.shared.questions!.count * 60
+    private var timer: Timer?
+    private var timeLeft = 0 //Game.shared.questions!.count * 60
     
     
     @IBAction func AnswerButtonPush(_ sender: UIButton) {
@@ -172,10 +173,13 @@ class GameSessionController: UIViewController {
         // если пользователь стер все вопросы восстанавливаем вопросы из встроенной базы
         if Game.shared.questions?.count == 0 || Game.shared.questions == nil {
             Game.shared.getQuestions()
+            self.dataCaretaker.saveQuestions(questions: Game.shared.questions!)
+
         }
         
         Game.shared.game = gameSession
         Game.shared.game!.result.dateGame = Game.shared.game!.dateGameF()
+        timeLeft = Game.shared.questions!.count * 60
         
         
         // перенести функционал в модель

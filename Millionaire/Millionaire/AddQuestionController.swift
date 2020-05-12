@@ -30,10 +30,12 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         if wrongAnswer2 == "" { return 4 }
         if wrongAnswer3 == "" { return 5 }
         
-        for count in 0...Game.shared.questions!.count-1 {
-            if Game.shared.questions![count].question == question {
-                self.countQuestion = count
-                return 6
+        if Game.shared.questions!.count > 0 {
+            for count in 0...Game.shared.questions!.count-1 {
+                if Game.shared.questions![count].question == question {
+                    self.countQuestion = count
+                    return 6
+                }
             }
         }
         
@@ -98,6 +100,9 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         QuestionsTableView.dataSource = self
         QuestionsTableView.delegate = self
+        
+        Game.shared.questions = self.dataCaretaker.retrieveQuestions()
+
         
         let Tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DismissKeyboard))
         view.addGestureRecognizer(Tap)
