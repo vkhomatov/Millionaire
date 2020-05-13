@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 
 
 class GameSession  {
@@ -16,11 +18,23 @@ class GameSession  {
     var timeLeft: Int = 0// Game.shared.questions!.count * 60
     var firstQuestion: Bool = true
     
+   // var vc = GameSessionController() //GameSessionController()
+    
+
+    
     convenience init(answerCost: Int) {
         self.init()
         result.answerCost = answerCost
         print("answerCost = \(answerCost)")
+       // vc = GameSessionController()
+      //  vc.gameDelegate = self as? GameSessionControllerDelegate
+        
+        
+        //как объявить делегата вьюконтроллера в модели?
+      //  model.vcFour.delegate = self
+
     }
+    
     
     // вычисляем общий выигрыш исходя из кол-ва верных ответов
     func prizeCountF() -> Int {
@@ -69,8 +83,16 @@ class GameSession  {
         return String(format:"%02i:%02i",minutes,Int(seconds))
     }
     
+//    func nextQuestion(labelText: String, buttons: [UIButton]) {
+//                   labelText = Game.shared.questions![result.questionCount].question
+//                   answerButtons[0].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].rightAnswer, for: .normal)
+//                   answerButtons[1].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnswer1, for: .normal)
+//                   answerButtons[2].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnsver2, for: .normal)
+//                   answerButtons[3].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnsver3, for: .normal)
+//    }
     
 }
+
 
 
 // структура результатов игры записываемая в UD

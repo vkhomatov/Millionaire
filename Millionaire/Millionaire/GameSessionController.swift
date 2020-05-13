@@ -6,19 +6,23 @@
 //  Copyright © 2020 Macrohard. All rights reserved.
 //
 
-//protocol GameSessionDelegate: class {
-//   func nextQuestion(withResult result: Int)
+//protocol GameSessionControllerDelegate: AnyObject {
+//    func nextQuestion(labelText: String, buttons: [UIButton])
 //}
 
 
 protocol ShuffleQuestionsStrategy {
-    //func shuffle(questions: [Question]?) -> [Question]?
     func shuffle()
+}
+
+protocol NoShuffleQuestionsStrategy {
+    func noshuffle()
 }
 
 import UIKit
 
 class GameSessionController: UIViewController {
+   
     
     @IBOutlet weak var QuestionCountLabel: UILabel!
     @IBOutlet weak var AnswerCostLabel: UILabel!
@@ -37,11 +41,16 @@ class GameSessionController: UIViewController {
     @IBOutlet weak var CallToFriendButton: UIButton!
     @IBOutlet weak var FiftyFiftyButton: UIButton!
     
+  //  weak var gameDelegate: GameSessionControllerDelegate?
+
     
     private let dataCaretaker = DataCaretaker()
     private var shuffleStrategy: ShuffleQuestionsStrategy = yesShuffle()
+    private var noshuffleStrategy: NoShuffleQuestionsStrategy = noShuffle()
+
     private var answerButtons = [UIButton]()
     
+
     @IBAction func AnswerButtonPush(_ sender: UIButton) {
         
         if Game.shared.questions == nil || Game.shared.game == nil {
@@ -131,8 +140,15 @@ class GameSessionController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         Game.shared.game = GameSession(answerCost: Game.shared.firstAnswerCost)
         Game.shared.game!.result.dateGame = Game.shared.game!.dateGameF()
+        
+       // self.gameDelegate = self
+//        Game.shared.game?.gameDelegate = self
+//        Game.shared.game?.gameDelegate?.nextQuestion(withResult: 1)
+        
+     //   gameDelegate?.nextQuestion(withResult: 111)
         
         // если пользователь стер все вопросы восстанавливаем вопросы из встроенной базы
         if Game.shared.questions?.count == 0 || Game.shared.questions == nil {
@@ -142,7 +158,9 @@ class GameSessionController: UIViewController {
         
         // если включен переключатель перемешать впросы, мешаем используя
         if Game.shared.shufflePosition == 1 {
-            self.shuffleStrategy.shuffle()
+           self.shuffleStrategy.shuffle()
+        } else {
+            self.noshuffleStrategy.noshuffle()
         }
         
         // установка таймера если переключатель включен
@@ -160,6 +178,10 @@ class GameSessionController: UIViewController {
         
         nextQuestion()
         Game.shared.game!.firstQuestion = false
+        
+        
+
+
         
         
     }
@@ -194,12 +216,15 @@ class GameSessionController: UIViewController {
             
             answerButtons.shuffle()
             
+     //       gameDelegate?.nextQuestion(labelText: QuestionLabel.text!, buttons: answerButtons)
+
+            
             // заполненние элементов интерфейса данными
-            self.QuestionLabel.text = Game.shared.questions![Game.shared.game!.result.questionCount].question
-            self.answerButtons[0].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].rightAnswer, for: .normal)
-            self.answerButtons[1].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnswer1, for: .normal)
-            self.answerButtons[2].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnsver2, for: .normal)
-            self.answerButtons[3].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnsver3, for: .normal)
+            QuestionLabel.text = Game.shared.questions![Game.shared.game!.result.questionCount].question
+            answerButtons[0].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].rightAnswer, for: .normal)
+            answerButtons[1].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnswer1, for: .normal)
+            answerButtons[2].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnsver2, for: .normal)
+            answerButtons[3].setTitle(Game.shared.questions![Game.shared.game!.result.questionCount].wrongAnsver3, for: .normal)
             
             QuestionCountLabel.text = "ВОПРОС " + String(Game.shared.game!.result.questionCount + 1) + " из " + String(Game.shared.questions!.count)
             AnswerCostLabel.text = "На кону " + String(Game.shared.game!.result.answerCost) + " рублей"
@@ -226,6 +251,7 @@ class GameSessionController: UIViewController {
     
     
 }
+
 
 
 

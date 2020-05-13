@@ -14,7 +14,11 @@ import Foundation
 //    }
 //}
 
+private let dataCaretaker = DataCaretaker()
+
+
 class yesShuffle: ShuffleQuestionsStrategy {
+    
     func shuffle() {
         if Game.shared.questions != nil {
             Game.shared.questions!.shuffle()
@@ -23,6 +27,23 @@ class yesShuffle: ShuffleQuestionsStrategy {
     }
 }
 
+class noShuffle: NoShuffleQuestionsStrategy {
+    func noshuffle() {
+        if Game.shared.questions != nil {
+           Game.shared.questions = dataCaretaker.retrieveQuestions()
+        }
+    }
+}
+
+
+
+//class yesShuffle: ShuffleQuestionsStrategy {
+//    func shuffle(questions: [Question]?) -> [Question]? {
+//      //  if questions != nil {
+//        return questions!.shuffled()
+//      //  }
+//    }
+//}
 
 //class yesShuffle: ShuffleQuestionsStrategy {
 //    func shuffle(questions: [Question]?) -> [Question]? {
