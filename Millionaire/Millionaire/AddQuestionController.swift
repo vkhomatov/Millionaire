@@ -39,8 +39,6 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         if wrongAnswer2 == "" { return 4 }
         if wrongAnswer3 == "" { return 5 }
         
-        
-        
         var newQuestion = Question()
         newQuestion.question = question
         newQuestion.rightAnswer = rightAnswer
@@ -105,7 +103,6 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         
         Game.shared.questions = self.dataCaretaker.retrieveQuestions()
 
-        
         let Tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DismissKeyboard))
         view.addGestureRecognizer(Tap)
         

@@ -25,10 +25,10 @@ class yesShuffle: ShuffleQuestionsStrategy {
 
 
 //class yesShuffle: ShuffleQuestionsStrategy {
-//    func shuffle(questions: [Question]) -> [Question]? {
-//        return questions
+//    func shuffle(questions: [Question]?) -> [Question]? {
+//        if questions != nil {
+//        return questions!.shuffled()
+//        } else { return nil }
 //    }
-//
-//
 //}
 

@@ -15,9 +15,6 @@ final class Game {
     
     private init() { }
     
-    
-    var biq = builtinQuestions()
-    
     //цена первого вопроса
     let firstAnswerCost = 100
     
@@ -29,17 +26,14 @@ final class Game {
             guard let shuffle = userDefaultsGet.object(forKey: "SHAFFLE") as? Int else {
                 print("Ключ SHAFFLE в UserDefaults не найден")
                 return 0 }
-            //  Game.shared.shuffleQuestions = shuffle
             print("shufflePositionGet \(shuffle)")
             return shuffle
         }
         set {
-            //    Game.shared.shuffleQuestions = newValue
             UserDefaults.standard.set(newValue, forKey: "SHAFFLE")
             print("shufflePositionSet \(newValue)")
             
         }
-        //return (userDefaultsGet.object(forKey: "SHAFFLE") as? Int)!
     }
     
     
@@ -49,19 +43,16 @@ final class Game {
             guard let timer = userDefaultsGet.object(forKey: "TIMER") as? Int else {
                 print("Ключ TIMER в UserDefaults не найден")
                 return 0 }
-            //  Game.shared.shuffleQuestions = shuffle
             print("timerPositionGet \(timer)")
             return timer
         }
         set {
-            //    Game.shared.shuffleQuestions = newValue
             UserDefaults.standard.set(newValue, forKey: "TIMER")
             print("timerPositionSet \(newValue)")
             
         }
-        //return (userDefaultsGet.object(forKey: "SHAFFLE") as? Int)!
     }
-    // var shuffleQuestions: Int = 0
+   
     
     // массив вопросов, сохраняем в UD и загружаем из UD
     var questions : [Question]?
@@ -69,53 +60,30 @@ final class Game {
     //массив результатов игр, сохраняем в UD и загружаем из UD
     var results : [Result]?
     
-    
+    // функция загрузки вшитых в приложение вопросов, если пользователь стер все вопросы из базы
     func getQuestions() {
-        
-      //  var questionBase = [Question]()
-        
-        let question1 = Question(question: biq.question1, rightAnswer: biq.rightAnswer1, wrongAnswer1: biq.wrongAnswer1_1, wrongAnsver2:  biq.wrongAnswer1_2, wrongAnsver3:  biq.wrongAnswer1_3)
-        let question2 = Question(question: biq.question2, rightAnswer: biq.rightAnswer2, wrongAnswer1: biq.wrongAnswer2_1, wrongAnsver2:  biq.wrongAnswer2_2, wrongAnsver3:  biq.wrongAnswer2_3)
-        let question3 = Question(question: biq.question3, rightAnswer: biq.rightAnswer3, wrongAnswer1: biq.wrongAnswer3_1, wrongAnsver2:  biq.wrongAnswer3_2, wrongAnsver3:  biq.wrongAnswer3_3)
-        let question4 = Question(question: biq.question4, rightAnswer: biq.rightAnswer4, wrongAnswer1: biq.wrongAnswer4_1, wrongAnsver2:  biq.wrongAnswer4_2, wrongAnsver3:  biq.wrongAnswer4_3)
-        let question5 = Question(question: biq.question5, rightAnswer: biq.rightAnswer5, wrongAnswer1: biq.wrongAnswer5_1, wrongAnsver2:  biq.wrongAnswer5_2, wrongAnsver3:  biq.wrongAnswer5_3)
-        let question6 = Question(question: biq.question6, rightAnswer: biq.rightAnswer6, wrongAnswer1: biq.wrongAnswer6_1, wrongAnsver2:  biq.wrongAnswer6_2, wrongAnsver3:  biq.wrongAnswer6_3)
-        let question7 = Question(question: biq.question7, rightAnswer: biq.rightAnswer7, wrongAnswer1: biq.wrongAnswer7_1, wrongAnsver2:  biq.wrongAnswer7_2, wrongAnsver3:  biq.wrongAnswer7_3)
-        let question8 = Question(question: biq.question8, rightAnswer: biq.rightAnswer8, wrongAnswer1: biq.wrongAnswer8_1, wrongAnsver2:  biq.wrongAnswer8_2, wrongAnsver3:  biq.wrongAnswer8_3)
-        let question9 = Question(question: biq.question9, rightAnswer: biq.rightAnswer9, wrongAnswer1: biq.wrongAnswer9_1, wrongAnsver2:  biq.wrongAnswer9_2, wrongAnsver3:  biq.wrongAnswer9_3)
-        let question10 = Question(question: biq.question10, rightAnswer: biq.rightAnswer10, wrongAnswer1: biq.wrongAnswer10_1, wrongAnsver2:  biq.wrongAnswer10_2, wrongAnsver3:  biq.wrongAnswer10_3)
-        
-        
+      
+        let biq = builtinQuestions()
+
         questions = [Question]()
-        
-        questions!.append(question1)
-        questions!.append(question2)
-        questions!.append(question3)
-        questions!.append(question4)
-        questions!.append(question5)
-        questions!.append(question6)
-        questions!.append(question7)
-        questions!.append(question8)
-        questions!.append(question9)
-        questions!.append(question10)
-        
-      //  questions = questionBase
+    
+        questions!.append(Question(question: biq.question1, rightAnswer: biq.rightAnswer1, wrongAnswer1: biq.wrongAnswer1_1, wrongAnsver2:  biq.wrongAnswer1_2, wrongAnsver3:  biq.wrongAnswer1_3))
+        questions!.append(Question(question: biq.question2, rightAnswer: biq.rightAnswer2, wrongAnswer1: biq.wrongAnswer2_1, wrongAnsver2:  biq.wrongAnswer2_2, wrongAnsver3:  biq.wrongAnswer2_3))
+        questions!.append(Question(question: biq.question3, rightAnswer: biq.rightAnswer3, wrongAnswer1: biq.wrongAnswer3_1, wrongAnsver2:  biq.wrongAnswer3_2, wrongAnsver3:  biq.wrongAnswer3_3))
+        questions!.append(Question(question: biq.question4, rightAnswer: biq.rightAnswer4, wrongAnswer1: biq.wrongAnswer4_1, wrongAnsver2:  biq.wrongAnswer4_2, wrongAnsver3:  biq.wrongAnswer4_3))
+        questions!.append(Question(question: biq.question5, rightAnswer: biq.rightAnswer5, wrongAnswer1: biq.wrongAnswer5_1, wrongAnsver2:  biq.wrongAnswer5_2, wrongAnsver3:  biq.wrongAnswer5_3))
+        questions!.append(Question(question: biq.question6, rightAnswer: biq.rightAnswer6, wrongAnswer1: biq.wrongAnswer6_1, wrongAnsver2:  biq.wrongAnswer6_2, wrongAnsver3:  biq.wrongAnswer6_3))
+        questions!.append(Question(question: biq.question7, rightAnswer: biq.rightAnswer7, wrongAnswer1: biq.wrongAnswer7_1, wrongAnsver2:  biq.wrongAnswer7_2, wrongAnsver3:  biq.wrongAnswer7_3))
+        questions!.append(Question(question: biq.question8, rightAnswer: biq.rightAnswer8, wrongAnswer1: biq.wrongAnswer8_1, wrongAnsver2:  biq.wrongAnswer8_2, wrongAnsver3:  biq.wrongAnswer8_3))
+        questions!.append(Question(question: biq.question9, rightAnswer: biq.rightAnswer9, wrongAnswer1: biq.wrongAnswer9_1, wrongAnsver2:  biq.wrongAnswer9_2, wrongAnsver3:  biq.wrongAnswer9_3))
+        questions!.append(Question(question: biq.question10, rightAnswer: biq.rightAnswer10, wrongAnswer1: biq.wrongAnswer10_1, wrongAnsver2:  biq.wrongAnswer10_2, wrongAnsver3:  biq.wrongAnswer10_3))
         
     }
     
-    //    func saveQuestion(newQuestion: Question) {
-    //
-    //        if questions == nil { return }
-    //
-    //        if (newQuestion.question != "" && newQuestion.rightAnswer != "" && newQuestion.wrongAnswer1 != "" && newQuestion.wrongAnsver3 != "" && newQuestion.wrongAnsver3 != "") {
-    //            questions?.append(newQuestion)
-    //            print("Вопрос записан в базу")
-    //        } else { print("Вопрос сформирован неправильно, проверьте заполнение всех необходимых полей") }
-    //
-    //    }
     
 }
 
+// структура вопроса
 struct Question: Equatable, Codable {
     
     var question : String?
@@ -126,6 +94,8 @@ struct Question: Equatable, Codable {
     
 }
 
+
+// структура с набором вопросов по умолчанию
 struct builtinQuestions {
     
     let question1 = "Какая библиотека нужна для создания пользовательского интерфейса?"
