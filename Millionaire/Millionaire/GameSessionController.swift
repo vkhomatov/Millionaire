@@ -50,7 +50,7 @@ class GameSessionController: UIViewController {
     //  private var gameWin: Bool = false
     
     private var timer: Timer?
-    private var timeLeft = 0 //Game.shared.questions!.count * 60
+    private var timeLeft = Game.shared.questions!.count * 60
     
     
     @IBAction func AnswerButtonPush(_ sender: UIButton) {
@@ -75,6 +75,10 @@ class GameSessionController: UIViewController {
                     // gameWin = true
                     
                     performSegue(withIdentifier: "EndGameControllerSegue", sender: nil)
+                    if timer != nil {
+                    timer?.invalidate()
+                    timer = nil
+                    }
                     //     print("Игра закончена, Вы победили!")
                     
                 } else {
@@ -86,6 +90,10 @@ class GameSessionController: UIViewController {
             default:
                 // print("Неправильный ответ, правильный ответ: \(String(describing: Game.shared.questions![Game.shared.game!.questionCount-1].rightAnswer))")
                 
+                if timer != nil {
+                timer?.invalidate()
+                timer = nil
+                }
                 Game.shared.game!.result.prizeCount = (Game.shared.game!.result.prizeCount - Game.shared.firstAnswerCost) / 2
                 performSegue(withIdentifier: "EndGameControllerSegue", sender: nil)
             }
@@ -157,7 +165,7 @@ class GameSessionController: UIViewController {
         if people  {
          
             for button in 0...wrongQuestionsButtons.count-1 {
-                if answerButtons[button].titleLabel?.text != currentQuestion.rightAnswer && wrongQuestionsButtons.count > 2 {
+                if answerButtons[button].titleLabel?.text != currentQuestion.rightAnswer && wrongQuestionsButtons.count > 2 && button <= (wrongQuestionsButtons.count-1)  {
                     wrongQuestionsButtons.remove(at: button)
                 }
             }
@@ -252,7 +260,9 @@ class GameSessionController: UIViewController {
         if timeLeft <= 0 {
             timer?.invalidate()
             timer = nil
-            Game.shared.game!.result.prizeCount = (Game.shared.game!.result.prizeCount - Game.shared.firstAnswerCost) / 2
+            if Game.shared.game!.result.prizeCount > 0 {
+                Game.shared.game!.result.prizeCount = (Game.shared.game!.result.prizeCount - Game.shared.firstAnswerCost) / 2
+            }
             performSegue(withIdentifier: "EndGameControllerSegue", sender: nil)
         }
     }

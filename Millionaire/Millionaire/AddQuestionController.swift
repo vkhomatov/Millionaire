@@ -24,12 +24,6 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
     // функция вроверки на правильность ввода и сохранения нового вопроса в базе ( вынести в модель и использовать Delegate )
     func saveNewQuestion(question : String?, rightAnswer : String?, wrongAnswer1 : String?, wrongAnswer2 : String?, wrongAnswer3 : String?) -> Int {
         
-        if question == "" { return 1 }
-        if rightAnswer == "" { return 2 }
-        if wrongAnswer1 == "" { return 3 }
-        if wrongAnswer2 == "" { return 4 }
-        if wrongAnswer3 == "" { return 5 }
-        
         if Game.shared.questions!.count > 0 {
             for count in 0...Game.shared.questions!.count-1 {
                 if Game.shared.questions![count].question == question {
@@ -38,6 +32,14 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
+        
+        if question == "" { return 1 }
+        if rightAnswer == "" { return 2 }
+        if wrongAnswer1 == "" { return 3 }
+        if wrongAnswer2 == "" { return 4 }
+        if wrongAnswer3 == "" { return 5 }
+        
+        
         
         var newQuestion = Question()
         newQuestion.question = question
