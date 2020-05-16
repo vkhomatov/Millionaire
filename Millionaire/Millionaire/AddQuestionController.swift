@@ -17,7 +17,7 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var WrongAnswer3TextField: UITextField!
     @IBOutlet weak var QuestionsTableView: UITableView!
     
-    private var newQuestion = Question()
+ //   private var newQuestion = Question()
     private let dataCaretaker = DataCaretaker()
     private var countQuestion: Int  = 0
     

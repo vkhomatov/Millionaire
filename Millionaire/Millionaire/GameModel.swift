@@ -26,16 +26,15 @@ final class Game {
             guard let shuffle = userDefaultsGet.object(forKey: "SHAFFLE") as? Int else {
                 print("Ключ SHAFFLE в UserDefaults не найден")
                 return 0 }
-            print("shufflePositionGet \(shuffle)")
+         //   print("shufflePositionGet \(shuffle)")
             return shuffle
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "SHAFFLE")
-            print("shufflePositionSet \(newValue)")
+           // print("shufflePositionSet \(newValue)")
             
         }
     }
-    
     
     var timerPosition: Int {
         get {
@@ -43,13 +42,10 @@ final class Game {
             guard let timer = userDefaultsGet.object(forKey: "TIMER") as? Int else {
                 print("Ключ TIMER в UserDefaults не найден")
                 return 0 }
-            print("timerPositionGet \(timer)")
             return timer
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "TIMER")
-            print("timerPositionSet \(newValue)")
-            
         }
     }
    
