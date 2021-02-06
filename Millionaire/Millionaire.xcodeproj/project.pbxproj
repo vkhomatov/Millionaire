@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5813A65724544B8900B2B03C /* DataCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813A65624544B8800B2B03C /* DataCaretaker.swift */; };
+		5813A65724544B8900B2B03C /* Memento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813A65624544B8800B2B03C /* Memento.swift */; };
 		5813A65B245599C800B2B03C /* Strategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813A65A245599C800B2B03C /* Strategy.swift */; };
 		585730052452CCA7007C5EBE /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585730042452CCA7007C5EBE /* ResultCell.swift */; };
 		585730072452F960007C5EBE /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585730062452F960007C5EBE /* QuestionCell.swift */; };
@@ -23,10 +23,13 @@
 		5862556D244ED26C0049ABF5 /* AddQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5862556C244ED26C0049ABF5 /* AddQuestionController.swift */; };
 		5862556F244EE0E40049ABF5 /* GameSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5862556E244EE0E40049ABF5 /* GameSessionModel.swift */; };
 		5862557A244FFBF10049ABF5 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58625579244FFBF10049ABF5 /* GameModel.swift */; };
+		5884B8CE246EAA9E00B4E991 /* Facade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5884B8CD246EAA9E00B4E991 /* Facade.swift */; };
+		5884B8D2246FD32D00B4E991 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5884B8D1246FD32D00B4E991 /* Observer.swift */; };
+		5884B8D4246FDEB000B4E991 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5884B8D3246FDEB000B4E991 /* Builder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5813A65624544B8800B2B03C /* DataCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCaretaker.swift; sourceTree = "<group>"; };
+		5813A65624544B8800B2B03C /* Memento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memento.swift; sourceTree = "<group>"; };
 		5813A65A245599C800B2B03C /* Strategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strategy.swift; sourceTree = "<group>"; };
 		585730042452CCA7007C5EBE /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
 		585730062452F960007C5EBE /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
@@ -44,6 +47,9 @@
 		5862556C244ED26C0049ABF5 /* AddQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuestionController.swift; sourceTree = "<group>"; };
 		5862556E244EE0E40049ABF5 /* GameSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSessionModel.swift; sourceTree = "<group>"; };
 		58625579244FFBF10049ABF5 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		5884B8CD246EAA9E00B4E991 /* Facade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facade.swift; sourceTree = "<group>"; };
+		5884B8D1246FD32D00B4E991 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		5884B8D3246FDEB000B4E991 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,13 +63,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5813A655245447F800B2B03C /* Momento */ = {
+		5813A655245447F800B2B03C /* Patterns */ = {
 			isa = PBXGroup;
 			children = (
-				5813A65624544B8800B2B03C /* DataCaretaker.swift */,
+				5813A65624544B8800B2B03C /* Memento.swift */,
 				5813A65A245599C800B2B03C /* Strategy.swift */,
+				5884B8CD246EAA9E00B4E991 /* Facade.swift */,
+				5884B8D1246FD32D00B4E991 /* Observer.swift */,
+				5884B8D3246FDEB000B4E991 /* Builder.swift */,
 			);
-			path = Momento;
+			path = Patterns;
 			sourceTree = "<group>";
 		};
 		585730032452CC3E007C5EBE /* Cells */ = {
@@ -94,7 +103,7 @@
 		5862554F244EA23B0049ABF5 /* Millionaire */ = {
 			isa = PBXGroup;
 			children = (
-				5813A655245447F800B2B03C /* Momento */,
+				5813A655245447F800B2B03C /* Patterns */,
 				58625574244EE14F0049ABF5 /* Controllers */,
 				58625572244EE13D0049ABF5 /* Models */,
 				585730032452CC3E007C5EBE /* Cells */,
@@ -156,7 +165,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = Macrohard;
 				TargetAttributes = {
 					5862554C244EA23B0049ABF5 = {
@@ -201,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58625565244ED0AE0049ABF5 /* GameController.swift in Sources */,
+				5884B8D2246FD32D00B4E991 /* Observer.swift in Sources */,
 				58625567244ED1CE0049ABF5 /* GameSessionController.swift in Sources */,
 				5862556F244EE0E40049ABF5 /* GameSessionModel.swift in Sources */,
 				5862556B244ED20C0049ABF5 /* EndGameController.swift in Sources */,
@@ -209,10 +219,12 @@
 				58625569244ED1EB0049ABF5 /* ResultsController.swift in Sources */,
 				58625551244EA23B0049ABF5 /* AppDelegate.swift in Sources */,
 				585730072452F960007C5EBE /* QuestionCell.swift in Sources */,
+				5884B8CE246EAA9E00B4E991 /* Facade.swift in Sources */,
 				58625553244EA23B0049ABF5 /* SceneDelegate.swift in Sources */,
-				5813A65724544B8900B2B03C /* DataCaretaker.swift in Sources */,
+				5813A65724544B8900B2B03C /* Memento.swift in Sources */,
 				585730052452CCA7007C5EBE /* ResultCell.swift in Sources */,
 				5862557A244FFBF10049ABF5 /* GameModel.swift in Sources */,
+				5884B8D4246FDEB000B4E991 /* Builder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +276,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -324,6 +337,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

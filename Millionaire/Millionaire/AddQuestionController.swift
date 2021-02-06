@@ -17,7 +17,7 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var WrongAnswer3TextField: UITextField!
     @IBOutlet weak var QuestionsTableView: UITableView!
     
-    private var newQuestion = Question()
+ //   private var newQuestion = Question()
     private let dataCaretaker = DataCaretaker()
     private var countQuestion: Int  = 0
     
@@ -38,8 +38,6 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         if wrongAnswer1 == "" { return 3 }
         if wrongAnswer2 == "" { return 4 }
         if wrongAnswer3 == "" { return 5 }
-        
-        
         
         var newQuestion = Question()
         newQuestion.question = question
@@ -105,7 +103,6 @@ class AddQuestionController: UIViewController, UITableViewDelegate, UITableViewD
         
         Game.shared.questions = self.dataCaretaker.retrieveQuestions()
 
-        
         let Tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DismissKeyboard))
         view.addGestureRecognizer(Tap)
         

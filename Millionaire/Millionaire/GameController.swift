@@ -17,14 +17,7 @@ class GameController: UIViewController {
     @IBOutlet weak var GameTimerOnOffSwithControl: UISwitch!
     @IBOutlet weak var ShaffleQuestionsLabel: UILabel!
     
-//    @IBAction func PlayButtonPush(_ sender: UIButton) {
-//
-////        if Game.shared.questions == nil || Game.shared.questions?.count == 0 {
-////
-////        }
-//
-//    }
-    
+    // включение/выключения таймера игры
     @IBAction func GameTimerOnOffSwith(_ sender: UISwitch) {
         if sender.isOn == true {
             Game.shared.timerPosition = 1
@@ -35,22 +28,18 @@ class GameController: UIViewController {
         }
     }
     
+    // включение/выключение режима перемещивания вопросов
     @IBAction func ShuffleQuestionsSwith(_ sender: UISwitch) {
         //перенести функционал в модель использовать Delegate
         if sender.isOn == true {
             ShaffleQuestionsLabel.textColor = .systemGreen
             Game.shared.shufflePosition = 1
-//            DispatchQueue.main.async {
-//                Game.shared.questions = self.dataCaretaker.retrieveQuestions()
-//            }
-        } else /*if sender.isOn == false*/ {
+        } else  {
             ShaffleQuestionsLabel.textColor = .systemGray5
             Game.shared.shufflePosition = 0
-//            DispatchQueue.main.async {
-//                Game.shared.questions = self.dataCaretaker.retrieveQuestions()
-//            }
         }
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +47,7 @@ class GameController: UIViewController {
        Game.shared.results = self.dataCaretaker.retrieveResults()
        Game.shared.questions = self.dataCaretaker.retrieveQuestions()
         
-        // перенести функционал в модель
+        // если при запуске база с вопросами пуста восстанавливаем вопросы по умолчанию
         if Game.shared.questions?.count == 0 {
             Game.shared.getQuestions()
             if Game.shared.questions != nil {
@@ -66,9 +55,6 @@ class GameController: UIViewController {
             }
         }
         
-    
-        
-        // перенести функционал в модель
         if Game.shared.shufflePosition == 1 {
             self.ShuffleQuestionSwitchControl.isOn = true
             ShaffleQuestionsLabel.textColor = .systemGreen

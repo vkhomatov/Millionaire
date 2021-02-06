@@ -26,6 +26,9 @@ class EndGameController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        Game.shared.game!.timer?.invalidate()
+        Game.shared.game!.timer = nil
         Game.shared.game!.result.promtUseCount = Game.shared.game!.promtUseCountF()
         
         GamePrizeLabel.text = String(Game.shared.game!.result.prizeCount) + " рублей"
@@ -44,7 +47,8 @@ class EndGameController: UIViewController {
         
         Game.shared.results?.append(Game.shared.game!.result)
         self.dataCaretaker.saveResults(results: Game.shared.results!)
-                
+        
+                        
     }
     
 }
