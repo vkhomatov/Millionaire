@@ -26,13 +26,10 @@ final class Game {
             guard let shuffle = userDefaultsGet.object(forKey: "SHAFFLE") as? Int else {
                 print("Ключ SHAFFLE в UserDefaults не найден")
                 return 0 }
-         //   print("shufflePositionGet \(shuffle)")
             return shuffle
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "SHAFFLE")
-           // print("shufflePositionSet \(newValue)")
-            
         }
     }
     
@@ -48,7 +45,7 @@ final class Game {
             UserDefaults.standard.set(newValue, forKey: "TIMER")
         }
     }
-   
+    
     
     // массив вопросов, сохраняем в UD и загружаем из UD
     var questions : [Question]?
@@ -58,11 +55,11 @@ final class Game {
     
     // функция загрузки вшитых в приложение вопросов, если пользователь стер все вопросы из базы
     func getQuestions() {
-      
+        
         let biq = builtinQuestions()
-
+        
         questions = [Question]()
-    
+        
         questions!.append(Question(question: biq.question1, rightAnswer: biq.rightAnswer1, wrongAnswer1: biq.wrongAnswer1_1, wrongAnsver2:  biq.wrongAnswer1_2, wrongAnsver3:  biq.wrongAnswer1_3))
         questions!.append(Question(question: biq.question2, rightAnswer: biq.rightAnswer2, wrongAnswer1: biq.wrongAnswer2_1, wrongAnsver2:  biq.wrongAnswer2_2, wrongAnsver3:  biq.wrongAnswer2_3))
         questions!.append(Question(question: biq.question3, rightAnswer: biq.rightAnswer3, wrongAnswer1: biq.wrongAnswer3_1, wrongAnsver2:  biq.wrongAnswer3_2, wrongAnsver3:  biq.wrongAnswer3_3))

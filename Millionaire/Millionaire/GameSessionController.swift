@@ -76,6 +76,7 @@ class GameSessionController: UIViewController {
             case PeopleHelpButton.titleLabel!.text:
                 Game.shared.game!.result.peopleHelpUse = true
                 gamePromptsFacade.PeopleAndFriendHelpPrompt(people: true, for: answerButtons)
+
                 
             case CallToFriendButton.titleLabel!.text:
                 Game.shared.game!.result.callToFriendUse = true
@@ -94,6 +95,7 @@ class GameSessionController: UIViewController {
         PeopleHelpButton.isEnabled = false
         FiftyFiftyButton.isEnabled = false
         CallToFriendButton.isEnabled = false
+        
     }
     
     
@@ -157,9 +159,11 @@ class GameSessionController: UIViewController {
     func nextQuestion() {
         
         // включение кнопок с вопросами после использования подсказок
-        for button in 0...answerButtons.count-1 {
-            answerButtons[button].isEnabled = true
-            answerButtons[button].titleLabel?.textColor = .systemBlue
+        for button in answerButtons {
+            button.isEnabled = true
+            button.titleLabel?.textColor = .systemBlue
+            button.titleLabel?.backgroundColor = .clear
+
         }
         
         // включение кнопок с неиспользованными подсказками

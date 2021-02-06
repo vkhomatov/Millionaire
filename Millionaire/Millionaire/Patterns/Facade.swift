@@ -22,6 +22,7 @@ class GamePromptsFacade {
                 wrongQuestionsButtons.remove(at: button)
             }
         }
+    
         
         for _ in 1...promptCount {
             let number = Int.random(in: 0 ... wrongQuestionsButtons.count-1)
@@ -45,7 +46,8 @@ class GamePromptsFacade {
             }
         }
         
-        wrongQuestionsButtons.randomElement()?.titleLabel?.textColor = .systemGreen
+        wrongQuestionsButtons.randomElement()?.titleLabel?.backgroundColor = .systemGreen    
+    
     }
     
 }
