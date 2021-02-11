@@ -451,50 +451,50 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавить новый вопрос" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySM-df-Nmv">
-                                <rect key="frame" x="81" y="44" width="252" height="28"/>
+                                <rect key="frame" x="81" y="18" width="252" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Вопрос" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fkc-k7-axj">
-                                <rect key="frame" x="10" y="123" width="394" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Вопрос" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fkc-k7-axj">
+                                <rect key="frame" x="10" y="85" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите вопрос" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uS-KP-29T">
-                                <rect key="frame" x="10" y="94" width="129" height="21"/>
+                                <rect key="frame" x="10" y="58" width="129" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите варианты ответа, правильный первым" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ng-Jn-9R5">
-                                <rect key="frame" x="10" y="178" width="378" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите варианты ответа" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ng-Jn-9R5">
+                                <rect key="frame" x="10" y="140" width="378" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Правильный ответ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kq8-D4-klI">
-                                <rect key="frame" x="10" y="207" width="394" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Правильный ответ" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Kq8-D4-klI">
+                                <rect key="frame" x="10" y="168" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Неправильный ответ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="now-bx-iYQ">
-                                <rect key="frame" x="10" y="249" width="394" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Неправильный ответ" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="now-bx-iYQ">
+                                <rect key="frame" x="10" y="210" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Неправильный ответ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6kp-U1-NVB">
-                                <rect key="frame" x="10" y="291" width="394" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Неправильный ответ" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6kp-U1-NVB">
+                                <rect key="frame" x="10" y="252" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Неправильный ответ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1RU-1k-erP">
-                                <rect key="frame" x="10" y="333" width="394" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Неправильный ответ" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1RU-1k-erP">
+                                <rect key="frame" x="10" y="294" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wsn-kM-fGg">
-                                <rect key="frame" x="0.0" y="454" width="414" height="359"/>
+                                <rect key="frame" x="0.0" y="415" width="414" height="398"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="QuestionCell" id="L3M-IG-hIa" customClass="QuestionCell" customModule="Millionaire" customModuleProvider="target">
@@ -525,14 +525,14 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u42-6i-iEg">
-                                <rect key="frame" x="337" y="375" width="67" height="30"/>
+                                <rect key="frame" x="337" y="336" width="67" height="30"/>
                                 <state key="normal" title="добавить"/>
                                 <connections>
                                     <action selector="AddQuestionButton:" destination="Nft-mO-6De" eventType="touchUpInside" id="FdQ-UF-4gM"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="База вопросов" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqv-gI-1FG">
-                                <rect key="frame" x="10" y="425" width="118" height="21"/>
+                                <rect key="frame" x="10" y="386" width="118" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
@@ -544,7 +544,7 @@
                             <constraint firstItem="1RU-1k-erP" firstAttribute="centerX" secondItem="Stw-1E-SdG" secondAttribute="centerX" id="38B-AL-z4a"/>
                             <constraint firstItem="Stw-1E-SdG" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="4uS-KP-29T" secondAttribute="trailing" constant="275" id="3VJ-in-mI1"/>
                             <constraint firstItem="Stw-1E-SdG" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="cqv-gI-1FG" secondAttribute="trailing" constant="286" id="46p-1y-76v"/>
-                            <constraint firstItem="Kq8-D4-klI" firstAttribute="top" secondItem="Stw-1E-SdG" secondAttribute="top" constant="207" id="4dO-Yg-KLV"/>
+                            <constraint firstItem="Kq8-D4-klI" firstAttribute="top" secondItem="8Ng-Jn-9R5" secondAttribute="top" constant="28" id="4dO-Yg-KLV"/>
                             <constraint firstItem="cqv-gI-1FG" firstAttribute="leading" secondItem="Stw-1E-SdG" secondAttribute="leading" constant="10" id="6Ke-mf-dqw"/>
                             <constraint firstItem="8Ng-Jn-9R5" firstAttribute="top" secondItem="fkc-k7-axj" secondAttribute="bottom" constant="21" id="7Gx-7I-hDk"/>
                             <constraint firstItem="8Ng-Jn-9R5" firstAttribute="leading" secondItem="Stw-1E-SdG" secondAttribute="leading" constant="10" id="8Tf-IZ-Xa1"/>
@@ -554,13 +554,13 @@
                             <constraint firstItem="Stw-1E-SdG" firstAttribute="trailing" secondItem="u42-6i-iEg" secondAttribute="trailing" constant="10" id="Iq6-Rg-A3n"/>
                             <constraint firstItem="wsn-kM-fGg" firstAttribute="centerX" secondItem="1RU-1k-erP" secondAttribute="centerX" id="Knf-as-Vrh"/>
                             <constraint firstItem="6kp-U1-NVB" firstAttribute="top" secondItem="now-bx-iYQ" secondAttribute="bottom" constant="8" id="NMj-b7-pMb"/>
-                            <constraint firstItem="fkc-k7-axj" firstAttribute="top" secondItem="4uS-KP-29T" secondAttribute="bottom" constant="8" id="O8r-WX-V5y"/>
-                            <constraint firstItem="ySM-df-Nmv" firstAttribute="top" secondItem="Stw-1E-SdG" secondAttribute="top" constant="44" id="OdL-hY-aeZ"/>
+                            <constraint firstItem="fkc-k7-axj" firstAttribute="top" secondItem="4uS-KP-29T" secondAttribute="bottom" constant="6" id="O8r-WX-V5y"/>
+                            <constraint firstItem="ySM-df-Nmv" firstAttribute="top" secondItem="Stw-1E-SdG" secondAttribute="top" constant="18" id="OdL-hY-aeZ"/>
                             <constraint firstItem="now-bx-iYQ" firstAttribute="leading" secondItem="Stw-1E-SdG" secondAttribute="leading" constant="10" id="P1g-IF-sbe"/>
                             <constraint firstItem="now-bx-iYQ" firstAttribute="top" secondItem="Kq8-D4-klI" secondAttribute="bottom" constant="8" id="Phf-3F-H62"/>
                             <constraint firstItem="cqv-gI-1FG" firstAttribute="top" secondItem="u42-6i-iEg" secondAttribute="bottom" constant="20" id="Qtq-1U-4Vd"/>
                             <constraint firstItem="6kp-U1-NVB" firstAttribute="centerX" secondItem="Stw-1E-SdG" secondAttribute="centerX" id="UGe-ca-2ug"/>
-                            <constraint firstItem="4uS-KP-29T" firstAttribute="top" secondItem="ySM-df-Nmv" secondAttribute="bottom" constant="22" id="W9k-8b-RQf"/>
+                            <constraint firstItem="4uS-KP-29T" firstAttribute="top" secondItem="ySM-df-Nmv" secondAttribute="bottom" constant="12" id="W9k-8b-RQf"/>
                             <constraint firstItem="ySM-df-Nmv" firstAttribute="centerX" secondItem="Stw-1E-SdG" secondAttribute="centerX" id="ZKm-4V-13I"/>
                             <constraint firstItem="now-bx-iYQ" firstAttribute="centerX" secondItem="Stw-1E-SdG" secondAttribute="centerX" id="aLO-ZO-uCw"/>
                             <constraint firstItem="Stw-1E-SdG" firstAttribute="trailing" secondItem="8Ng-Jn-9R5" secondAttribute="trailing" constant="26" id="cFe-Ae-vql"/>
